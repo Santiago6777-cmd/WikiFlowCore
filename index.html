@@ -1,3 +1,8 @@
+
+  
+ 
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -765,7 +770,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">25 JULIO 2026</div>
-              <div>Integración completa de Firebase Firestore optimizada con Promise.all y Webhook de Discord asíncrono.</div>
+              <div>Actualización de Webhook a nuevo canal de Discord y optimización general de Firebase.</div>
             </li>
             <li class="patch-item">
               <div class="patch-date">JUNIO 2026</div>
@@ -803,7 +808,7 @@
     <button onclick="abrirSeccion('mas')" class="nav-btn">MÁS... 🔍</button>
   </div>
 
-  <!-- INTEGRACIÓN DE FIREBASE Y WEBHOOK (SDK v10 OPTIMIZADO) -->
+  <!-- INTEGRACIÓN DE FIREBASE Y NUEVO WEBHOOK DE DISCORD -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -818,22 +823,22 @@
       measurementId: "G-Y5ECPRBS9P"
     };
 
-    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1530689897587937492/tKcjCI0VWQ-K3A0mVttglGWymGAkUgKq-9IAEysDpQNT_lLATkU82nH-6_zDAJ6i4QV7";
-
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Discord corre en segundo plano de forma totalmente asíncrona
+    // NUEVO WEBHOOK DE DISCORD ACTUALIZADO
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1530721205676408913/Prmkltlgv4cF57dyk_T7ClPbKcNw7c6ACQsRjxOTqpLASApDxZsUzK3EkEO-Id0cOICP";
+
     async function enviarNotificacionDiscord(mensajeTexto) {
       if (!DISCORD_WEBHOOK_URL.includes("discord.com")) return;
       try {
-        fetch(DISCORD_WEBHOOK_URL, {
+        await fetch(DISCORD_WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ content: mensajeTexto })
         });
       } catch (e) {
-        console.error("Error al enviar notificación a Discord:", e);
+        console.warn("Aviso: No se pudo enviar directo a Discord por restricciones del navegador (CORS).");
       }
     }
 
@@ -844,7 +849,7 @@
           sugerencia: desc,
           fecha: new Date().toISOString()
         });
-        enviarNotificacionDiscord(`💡 **Nueva Sugerencia de Wiki**\n👤 **Usuario:** ${user}\n💬 **Idea:** ${desc}`);
+        await enviarNotificacionDiscord(`💡 **Nueva Sugerencia de [${user}]:**\n> ${desc}`);
         alert("¡Sugerencia guardada exitosamente en Firebase!");
       } catch (e) {
         console.error("Error al enviar sugerencia: ", e);
@@ -860,7 +865,7 @@
           descripcion: desc,
           fecha: new Date().toISOString()
         });
-        enviarNotificacionDiscord(`🐛 **Reporte de Bug**\n👤 **Usuario:** ${user}\n📱 **Dispositivo:** ${device}\n📝 **Descripción:** ${desc}`);
+        await enviarNotificacionDiscord(`🛠️ **Nuevo Reporte de Bug de [${user}]** (${device}):\n> ${desc}`);
         alert("¡Reporte de bug guardado en Firebase!");
       } catch (e) {
         console.error("Error al reportar bug: ", e);
@@ -868,8 +873,7 @@
       }
     };
 
-    // GUARDADO ULTRA RÁPIDO CON PROMISE.ALL
-    window.guardarNoticiasFirebase = async function() {
+    window.guardarCambiosFirebase = async function() {
       let btnGuardar = document.querySelector('button[onclick="guardarCambiosFirebase()"]');
       let textoOriginal = btnGuardar.innerHTML;
       
@@ -886,11 +890,9 @@
         });
 
         await Promise.all(promesas);
+        await enviarNotificacionDiscord("📰 **¡El periódico o banner de la Wiki ha sido actualizado en vivo desde el panel de staff!**");
 
         alert("¡Cambios guardados con éxito en la nube!");
-
-        enviarNotificacionDiscord(`📰 **Actualización del Staff**\nSe han modificado y guardado los textos del Periódico / Banner principal en la wiki.`);
-
       } catch (e) {
         console.error("Error al guardar en Firestore: ", e);
         alert("Error al guardar en la nube. Verifica tus credenciales.");
@@ -1009,14 +1011,6 @@
         btnEdit.style.background = '#00ff66';
         btnEdit.innerHTML = "🟢 Activar Modo Edición Directa";
         elementosEditables.forEach(el => el.setAttribute('contenteditable', 'false'));
-      }
-    }
-
-    function guardarCambiosFirebase() {
-      if (typeof window.guardarNoticiasFirebase === 'function') {
-        window.guardarNoticiasFirebase();
-      } else {
-        alert("Firebase se está cargando, espera un segundo.");
       }
     }
 
