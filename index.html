@@ -1,10 +1,4 @@
-
- 
-  
-  
-
- 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -141,7 +135,6 @@
     .patch-item { background: rgba(0, 20, 50, 0.6); border-left: 3px solid #ff0055; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
     .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00f0ff; margin-bottom: 3px; }
 
-    /* ESTILOS PARA EDICIÓN DIRECTA EN VIVO */
     .editando-activo [contenteditable="true"] {
       border: 2px dashed #00ff66 !important;
       background: rgba(0, 255, 102, 0.1) !important;
@@ -707,14 +700,12 @@
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">🔐 Verificación de Staff</div>
         
-        <!-- Formulario inicial para desbloquear -->
         <form class="form-cmd" id="formVerificacion" onsubmit="verificarCodigoCmd(event)" style="margin-top: 10px;">
           <input type="password" class="form-input" id="codigoAcceso" placeholder="Ingresa código de staff..." required>
           <button type="submit" class="btn-enviar">Verificar Código</button>
         </form>
         <div id="resultadoCmd" style="margin-top: 10px; font-family: 'Orbitron', sans-serif; font-size: 0.95rem;"></div>
 
-        <!-- Controles ocultos hasta verificar el código -->
         <div id="panelControlesStaff" style="display: none; margin-top: 20px; border-top: 1px solid rgba(0, 240, 255, 0.3); padding-top: 15px; flex-direction: column; gap: 12px;">
           <div class="regla-titulo" style="font-size: 1.1rem; color: #00ff66;">Panel de Edición Autorizado</div>
           <button onclick="alternarModoEdicion()" id="btnModoEdicion" class="btn-enviar" style="background: #00ff66; color: #000; width: 100%;">🟢 Activar Modo Edición Directa</button>
@@ -740,7 +731,7 @@
         <form class="form-sug" onsubmit="enviarSugerencia(event)">
           <input type="text" class="form-input" id="sugUser" placeholder="Tu usuario de Discord" required>
           <textarea class="form-textarea" id="sugDesc" placeholder="Describe tu idea o sugerencia detalladamente..." required></textarea>
-          <button type="submit" class="btn-enviar">Enviar Sugerencia</button>
+          <button type="submit" class="btn-enviar" id="btnEnviarSug">Enviar Sugerencia</button>
         </form>
       </div>
     </div>
@@ -762,7 +753,7 @@
           <input type="text" class="form-input" id="bugUser" placeholder="Tu usuario de Discord" required>
           <input type="text" class="form-input" id="bugDevice" placeholder="Dispositivo (Ej: iPhone, Android, PC)" required>
           <textarea class="form-textarea" id="bugDesc" placeholder="Describe el error que encontraste..." required></textarea>
-          <button type="submit" class="btn-enviar">Enviar Reporte</button>
+          <button type="submit" class="btn-enviar" id="btnEnviarBug">Enviar Reporte</button>
         </form>
       </div>
       <div style="display: flex; flex-direction: column; gap: 18px;">
@@ -928,7 +919,6 @@
         btnEdit.style.background = '#ff0055';
         btnEdit.innerHTML = "🔴 Desactivar Modo Edición";
         elementosEditables.forEach(el => el.setAttribute('contenteditable', 'true'));
-        alert("¡Modo Edición Activado! Haz clic en los textos del Banner o Periódico para cambiarlos.");
       } else {
         cuerpo.classList.remove('editando-activo');
         btnEdit.style.background = '#00ff66';
@@ -937,19 +927,78 @@
       }
     }
 
-    function enviarReporte(event) {
+    // --- CONECTADO AL BOT DE DISCORD CON TURBO OPTIMIZADO ---
+    async function enviarReporte(event) {
       event.preventDefault();
-      alert("¡Reporte de bug enviado correctamente!");
-      document.getElementById('bugUser').value = '';
-      document.getElementById('bugDevice').value = '';
-      document.getElementById('bugDesc').value = '';
+      const btn = document.getElementById('btnEnviarBug');
+      btn.innerHTML = "⚡ Enviando...";
+      btn.disabled = true;
+
+      const datos = {
+        tipo: 'reporte',
+        autor: document.getElementById('bugUser').value,
+        contenido: `Dispositivo: ${document.getElementById('bugDevice').value} | Descripción: ${document.getElementById('bugDesc').value}`
+      };
+
+      try {
+        const respuesta = await fetch('http://localhost:3000/api/enviar-sugerencia', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+
+        const resultado = await respuesta.json();
+        if (resultado.success) {
+          alert("¡Reporte enviado a Discord con éxito!");
+          document.getElementById('bugUser').value = '';
+          document.getElementById('bugDevice').value = '';
+          document.getElementById('bugDesc').value = '';
+        } else {
+          alert("Hubo un error al procesar el reporte en el servidor.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("No se pudo conectar con el bot. Asegúrate de tener la consola encendida con node index.js.");
+      } finally {
+        btn.innerHTML = "Enviar Reporte";
+        btn.disabled = false;
+      }
     }
 
-    function enviarSugerencia(event) {
+    async function enviarSugerencia(event) {
       event.preventDefault();
-      alert("¡Sugerencia enviada correctamente!");
-      document.getElementById('sugUser').value = '';
-      document.getElementById('sugDesc').value = '';
+      const btn = document.getElementById('btnEnviarSug');
+      btn.innerHTML = "⚡ Enviando...";
+      btn.disabled = true;
+
+      const datos = {
+        tipo: 'sugerencia',
+        autor: document.getElementById('sugUser').value,
+        contenido: document.getElementById('sugDesc').value
+      };
+
+      try {
+        const respuesta = await fetch('http://localhost:3000/api/enviar-sugerencia', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+
+        const resultado = await respuesta.json();
+        if (resultado.success) {
+          alert("¡Sugerencia enviada a Discord con éxito!");
+          document.getElementById('sugUser').value = '';
+          document.getElementById('sugDesc').value = '';
+        } else {
+          alert("Hubo un error al procesar la sugerencia en el servidor.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("No se pudo conectar con el bot. Asegúrate de tener la consola encendida con node index.js.");
+      } finally {
+        btn.innerHTML = "Enviar Sugerencia";
+        btn.disabled = false;
+      }
     }
   </script>
 
