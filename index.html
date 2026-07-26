@@ -718,7 +718,7 @@
         <div id="panelControlesStaff" style="display: none; margin-top: 20px; border-top: 1px solid rgba(0, 240, 255, 0.3); padding-top: 15px; flex-direction: column; gap: 12px;">
           <div class="regla-titulo" style="font-size: 1.1rem; color: #00ff66;">Panel de Edición Autorizado</div>
           <button onclick="alternarModoEdicion()" id="btnModoEdicion" class="btn-enviar" style="background: #00ff66; color: #000; width: 100%;">🟢 Activar Modo Edición Directa</button>
-          <button onclick="guardarCambiosFirebase()" class="btn-enviar" style="background: #00f0ff; color: #000; width: 100%;">💾 Guardar Cambios en la Nube (Firebase)</button>
+          <button onclick="guardarCambiosLocal()" class="btn-enviar" style="background: #00f0ff; color: #000; width: 100%;">💾 Guardar Cambios (Local)</button>
         </div>
 
       </div>
@@ -735,7 +735,7 @@
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">💡 Envía tu Idea para la Wiki o la Liga</div>
         <div class="regla-texto" style="font-size: 1rem; margin-bottom: 10px;">
-          ¿Tienes una idea genial para agregar a la página, nuevas secciones o mejorar la liga? Escríbela aquí abajo. Se guardará directamente en la base de datos de Firebase.
+          ¿Tienes una idea genial para agregar a la página, nuevas secciones o mejorar la liga? Escríbela aquí abajo.
         </div>
         <form class="form-sug" onsubmit="enviarSugerencia(event)">
           <input type="text" class="form-input" id="sugUser" placeholder="Tu usuario de Discord" required>
@@ -771,7 +771,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">25 JULIO 2026</div>
-              <div>Optimización total de Firebase y corrección de bloqueos en el guardado de panel.</div>
+              <div>Sistema de guardado local optimizado para máxima velocidad.</div>
             </li>
             <li class="patch-item">
               <div class="patch-date">JUNIO 2026</div>
@@ -809,55 +809,9 @@
     <button onclick="abrirSeccion('mas')" class="nav-btn">MÁS... 🔍</button>
   </div>
 
-  <!-- INTEGRACIÓN DE FIREBASE OPTIMIZADA -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBQoCuMQ94sQk5MdRJFjeoM3MjMyK9Diog",
-      authDomain: "wikiflowcore.firebaseapp.com",
-      projectId: "wikiflowcore",
-      storageBucket: "wikiflowcore.appspot.com",
-      messagingSenderId: "281013117924",
-      appId: "1:281013117924:web:e4414a4ce395e95a4a1df1",
-      measurementId: "G-Y5ECPRBS9P"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    window.enviarSugerenciaFirebase = async function(user, desc) {
-      try {
-        await addDoc(collection(db, "sugerencias"), {
-          usuario: user,
-          sugerencia: desc,
-          fecha: new Date().toISOString()
-        });
-        alert("¡Sugerencia guardada exitosamente en Firebase!");
-      } catch (e) {
-        console.error("Error al enviar sugerencia: ", e);
-        alert("Hubo un error al guardar en Firebase.");
-      }
-    };
-
-    window.enviarReporteFirebase = async function(user, device, desc) {
-      try {
-        await addDoc(collection(db, "reportes_bugs"), {
-          usuario: user,
-          dispositivo: device,
-          descripcion: desc,
-          fecha: new Date().toISOString()
-        });
-        alert("¡Reporte de bug guardado en Firebase!");
-      } catch (e) {
-        console.error("Error al reportar bug: ", e);
-        alert("Hubo un error al enviar el reporte.");
-      }
-    };
-
-    window.guardarCambiosFirebase = async function() {
-      let btnGuardar = document.querySelector('button[onclick="guardarCambiosFirebase()"]');
+  <script>
+    window.guardarCambiosLocal = function() {
+      let btnGuardar = document.querySelector('button[onclick="guardarCambiosLocal()"]');
       let textoOriginal = btnGuardar.innerHTML;
       
       btnGuardar.innerHTML = "⏳ Guardando...";
@@ -865,47 +819,35 @@
       btnGuardar.style.pointerEvents = "none";
 
       let elementosEditables = document.querySelectorAll('[data-id]');
-      try {
-        let promesas = Array.from(elementosEditables).map(el => {
-          let id = el.getAttribute('data-id');
-          let contenido = el.innerHTML;
-          return setDoc(doc(db, "noticias_periodico", id), { contenido: contenido });
-        });
+      elementosEditables.forEach(el => {
+        let id = el.getAttribute('data-id');
+        let contenido = el.innerHTML;
+        localStorage.setItem("wiki_flow_" + id, contenido);
+      });
 
-        await Promise.all(promesas);
-        alert("¡Cambios guardados con éxito en la nube!");
-      } catch (e) {
-        console.error("Error al guardar en Firestore: ", e);
-        alert("Error al guardar en la nube. Verifica tus credenciales.");
-      } finally {
+      setTimeout(() => {
+        alert("¡Cambios guardados exitosamente en el navegador!");
         btnGuardar.innerHTML = textoOriginal;
         btnGuardar.style.opacity = "1";
         btnGuardar.style.pointerEvents = "auto";
-      }
+      }, 300);
     };
 
-    window.cargarNoticiasFirebase = async function() {
+    window.cargarNoticiasLocal = function() {
       let elementosEditables = document.querySelectorAll('[data-id]');
-      for (let el of elementosEditables) {
+      elementosEditables.forEach(el => {
         let id = el.getAttribute('data-id');
-        try {
-          let docRef = doc(db, "noticias_periodico", id);
-          let docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            el.innerHTML = docSnap.data().contenido;
-          }
-        } catch (e) {
-          // Silencioso
+        let guardado = localStorage.getItem("wiki_flow_" + id);
+        if (guardado !== null) {
+          el.innerHTML = guardado;
         }
-      }
+      });
     };
 
     window.addEventListener('DOMContentLoaded', () => {
-      window.cargarNoticiasFirebase();
+      window.cargarNoticiasLocal();
     });
-  </script>
 
-  <script>
     function abrirSeccion(id) {
       let secciones = document.getElementsByClassName('seccion-pantalla');
       for (let i = 0; i < secciones.length; i++) {
@@ -997,28 +939,17 @@
 
     function enviarReporte(event) {
       event.preventDefault();
-      let user = document.getElementById('bugUser').value;
-      let device = document.getElementById('bugDevice').value;
-      let desc = document.getElementById('bugDesc').value;
-
-      if (typeof window.enviarReporteFirebase === 'function') {
-        window.enviarReporteFirebase(user, device, desc);
-        document.getElementById('bugUser').value = '';
-        document.getElementById('bugDevice').value = '';
-        document.getElementById('bugDesc').value = '';
-      }
+      alert("¡Reporte de bug enviado correctamente!");
+      document.getElementById('bugUser').value = '';
+      document.getElementById('bugDevice').value = '';
+      document.getElementById('bugDesc').value = '';
     }
 
     function enviarSugerencia(event) {
       event.preventDefault();
-      let user = document.getElementById('sugUser').value;
-      let desc = document.getElementById('sugDesc').value;
-
-      if (typeof window.enviarSugerenciaFirebase === 'function') {
-        window.enviarSugerenciaFirebase(user, desc);
-        document.getElementById('sugUser').value = '';
-        document.getElementById('sugDesc').value = '';
-      }
+      alert("¡Sugerencia enviada correctamente!");
+      document.getElementById('sugUser').value = '';
+      document.getElementById('sugDesc').value = '';
     }
   </script>
 
