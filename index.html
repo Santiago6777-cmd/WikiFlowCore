@@ -1,9 +1,10 @@
 
-  
  
+  
+  
 
-
-<!DOCTYPE html>
+ 
+ <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -770,7 +771,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">25 JULIO 2026</div>
-              <div>Actualización de Webhook a nuevo canal de Discord y optimización general de Firebase.</div>
+              <div>Optimización total de Firebase y corrección de bloqueos en el guardado de panel.</div>
             </li>
             <li class="patch-item">
               <div class="patch-date">JUNIO 2026</div>
@@ -808,7 +809,7 @@
     <button onclick="abrirSeccion('mas')" class="nav-btn">MÁS... 🔍</button>
   </div>
 
-  <!-- INTEGRACIÓN DE FIREBASE Y NUEVO WEBHOOK DE DISCORD -->
+  <!-- INTEGRACIÓN DE FIREBASE OPTIMIZADA -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -826,22 +827,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // NUEVO WEBHOOK DE DISCORD ACTUALIZADO
-    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1530721205676408913/Prmkltlgv4cF57dyk_T7ClPbKcNw7c6ACQsRjxOTqpLASApDxZsUzK3EkEO-Id0cOICP";
-
-    async function enviarNotificacionDiscord(mensajeTexto) {
-      if (!DISCORD_WEBHOOK_URL.includes("discord.com")) return;
-      try {
-        await fetch(DISCORD_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ content: mensajeTexto })
-        });
-      } catch (e) {
-        console.warn("Aviso: No se pudo enviar directo a Discord por restricciones del navegador (CORS).");
-      }
-    }
-
     window.enviarSugerenciaFirebase = async function(user, desc) {
       try {
         await addDoc(collection(db, "sugerencias"), {
@@ -849,7 +834,6 @@
           sugerencia: desc,
           fecha: new Date().toISOString()
         });
-        await enviarNotificacionDiscord(`💡 **Nueva Sugerencia de [${user}]:**\n> ${desc}`);
         alert("¡Sugerencia guardada exitosamente en Firebase!");
       } catch (e) {
         console.error("Error al enviar sugerencia: ", e);
@@ -865,7 +849,6 @@
           descripcion: desc,
           fecha: new Date().toISOString()
         });
-        await enviarNotificacionDiscord(`🛠️ **Nuevo Reporte de Bug de [${user}]** (${device}):\n> ${desc}`);
         alert("¡Reporte de bug guardado en Firebase!");
       } catch (e) {
         console.error("Error al reportar bug: ", e);
@@ -890,8 +873,6 @@
         });
 
         await Promise.all(promesas);
-        await enviarNotificacionDiscord("📰 **¡El periódico o banner de la Wiki ha sido actualizado en vivo desde el panel de staff!**");
-
         alert("¡Cambios guardados con éxito en la nube!");
       } catch (e) {
         console.error("Error al guardar en Firestore: ", e);
