@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
 const { Redis } = require('@upstash/redis');
 const express = require('express');
@@ -37,8 +38,8 @@ app.post('/api/enviar-sugerencia', async (req, res) => {
     }
 
     const mensajeFormateado = `**Nuevo ${tipo === 'reporte' ? '🚨 Reporte' : '💡 Sugerencia'}**\n` +
-                              `> ${contenido}\n` +
-                              `*Enviado por: ${autor || 'Anónimo'}*`;
+                            `> ${contenido}\n` +
+                            `*Enviado por: ${autor || 'Anónimo'}*`;
 
     await canal.send(mensajeFormateado);
 
