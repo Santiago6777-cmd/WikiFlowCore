@@ -192,7 +192,6 @@
 <body id="cuerpoPagina">
 
   <div class="nav-bar">
-    <!-- BOTÓN DE LOGIN REAL CON DISCORD (CLIENT ID CONFIGURADO) -->
     <button id="btnLoginDiscord" onclick="iniciarSesionDiscord()" class="nav-btn btn-discord-login">
       🎮 LOGIN DISCORD
     </button>
@@ -820,7 +819,7 @@
 
   <script>
     // ============================================================
-    // CONFIGURACIÓN DE DISCORD OAUTH2 (CLIENT ID INTEGRADO)
+    // CONFIGURACIÓN DE DISCORD OAUTH2 (BOT COMO PUENTE)
     // ============================================================
     const CLIENT_ID = '1530774214330810368'; 
     const REDIRECT_URI = window.location.origin + window.location.pathname;
@@ -1060,6 +1059,7 @@
       }
     }
 
+    // REGISTRO DE REPORTE PARA EL BOT
     function enviarReporte(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
@@ -1071,13 +1071,27 @@
       const dispositivo = document.getElementById('bugDevice').value;
       const descripcion = document.getElementById('bugDesc').value;
 
-      console.log(`Reporte de ${usuario.globalName} (${dispositivo}): ${descripcion}`);
-      alert("¡Reporte enviado con éxito de forma local!");
-      
+      const reporteData = {
+        tipo: "bug",
+        usuarioId: usuario.id,
+        usuarioNombre: usuario.globalName,
+        username: usuario.username,
+        dispositivo: dispositivo,
+        descripcion: descripcion,
+        fecha: new Date().toISOString()
+      };
+
+      // Guardado estructurado local para que tu bot lo recoja o procese
+      let reportes = JSON.parse(localStorage.getItem("wiki_flow_reportes") || "[]");
+      reportes.push(reporteData);
+      localStorage.setItem("wiki_flow_reportes", JSON.stringify(reportes));
+
+      alert("¡Reporte registrado con éxito para que el bot lo procese!");
       document.getElementById('bugDevice').value = '';
       document.getElementById('bugDesc').value = '';
     }
 
+    // REGISTRO DE SUGERENCIA PARA EL BOT
     function enviarSugerencia(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
@@ -1088,9 +1102,21 @@
       const usuario = JSON.parse(usuarioGuardado);
       const sugerenciaTexto = document.getElementById('sugDesc').value;
 
-      console.log(`Sugerencia de ${usuario.globalName}: ${sugerenciaTexto}`);
-      alert("¡Sugerencia enviada con éxito de forma local!");
-      
+      const sugerenciaData = {
+        tipo: "sugerencia",
+        usuarioId: usuario.id,
+        usuarioNombre: usuario.globalName,
+        username: usuario.username,
+        sugerencia: sugerenciaTexto,
+        fecha: new Date().toISOString()
+      };
+
+      // Guardado estructurado local para que tu bot lo recoja o procese
+      let sugerencias = JSON.parse(localStorage.getItem("wiki_flow_sugerencias") || "[]");
+      sugerencias.push(sugerenciaData);
+      localStorage.setItem("wiki_flow_sugerencias", JSON.stringify(sugerencias));
+
+      alert("¡Sugerencia registrada con éxito para que el bot la procese!");
       document.getElementById('sugDesc').value = '';
     }
   </script>
