@@ -12,183 +12,180 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Rajdhani', sans-serif;
-      background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #0033cc 100%);
+      background: linear-gradient(135deg, #0a0015 0%, #1a0033 50%, #05000a 100%);
       background-attachment: fixed;
       color: #ffffff;
       min-height: 100vh;
       overflow-x: hidden;
       padding-bottom: 140px;
-      transition: background 0.5s ease;
     }
-    
-    body.milan-mode {
-      background: linear-gradient(135deg, #150000 0%, #660000 50%, #0a0a0a 100%) !important;
-      background-attachment: fixed !important;
-    }
-    body.milan-mode .titulo {
-      color: #ff1a1a !important;
-      text-shadow: 0 0 15px rgba(255, 0, 0, 1), 0 0 30px rgba(0, 0, 0, 0.9) !important;
-      animation: estaticaMilan 2s infinite linear !important;
-    }
-    @keyframes estaticaMilan {
-      0% { transform: translate(0, 0); text-shadow: 0 0 15px rgba(255, 0, 0, 1); }
-      2% { transform: translate(0, -4px); text-shadow: -2px 0 #000000, 2px 0 #ff0000; }
-      4% { transform: translate(0, 3px); text-shadow: 2px 0 #000000, -2px 0 #ff0000; }
-      6% { transform: translate(0, 0); text-shadow: 0 0 15px rgba(255, 0, 0, 1); }
-      50% { transform: translate(0, 4px); text-shadow: -3px 0 #000000, 3px 0 #ff0000; }
-      100% { transform: translate(0, 0); }
+
+    /* EFECTO GLITCH PRO (Negro, Morado y Verde Neón - Rápido y Fluido) */
+    @keyframes glitchTransicionPro {
+      0% { 
+        opacity: 0; 
+        transform: translate(0, 0) scale(0.99); 
+        filter: blur(4px) hue-rotate(0deg); 
+      }
+      20% { 
+        opacity: 0.4; 
+        transform: translate(-4px, 2px); 
+        filter: drop-shadow(-3px 0 #800080) blur(2px); 
+      }
+      40% { 
+        opacity: 0.75; 
+        transform: translate(4px, -2px); 
+        filter: drop-shadow(3px 0 #00ff66) blur(1px); 
+        background-color: rgba(5, 0, 10, 0.95);
+      }
+      70% { 
+        opacity: 0.95; 
+        transform: translate(-2px, 1px); 
+        filter: drop-shadow(0 0 10px rgba(128,0,128,0.5)); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translate(0, 0) scale(1); 
+        filter: none; 
+      }
     }
 
     .seccion-pantalla { display: none; padding: 40px; position: relative; z-index: 10; }
-    .seccion-pantalla.activa { display: block !important; }
+    .seccion-pantalla.activa { 
+      display: block !important; 
+      animation: glitchTransicionPro 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+    }
+
     #inicio { position: relative; }
     .hero-content { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
     .titulo {
       font-family: 'Orbitron', sans-serif; font-size: 3.8rem; font-weight: 900; color: #ffffff;
-      text-shadow: 0 0 15px rgba(0, 240, 255, 1), 0 0 30px rgba(0, 240, 255, 0.8);
+      text-shadow: 0 0 15px rgba(0, 255, 102, 0.9), 0 0 30px rgba(128, 0, 128, 0.8);
       line-height: 1.1; margin-right: 20px; animation: estaticaTexto 2s infinite linear;
     }
     @keyframes estaticaTexto {
-      0% { transform: translate(0, 0); text-shadow: 0 0 15px rgba(0, 240, 255, 1); }
-      2% { transform: translate(0, -4px); text-shadow: -2px 0 #ff0055, 2px 0 #00f0ff; }
-      4% { transform: translate(0, 3px); text-shadow: 2px 0 #ff0055, -2px 0 #00f0ff; }
-      6% { transform: translate(0, 0); text-shadow: 0 0 15px rgba(0, 240, 255, 1); }
-      50% { transform: translate(0, 4px); text-shadow: -3px 0 #ff0055, 3px 0 #00f0ff; }
+      0% { transform: translate(0, 0); text-shadow: 0 0 15px rgba(0, 255, 102, 0.9); }
+      2% { transform: translate(0, -4px); text-shadow: -2px 0 #800080, 2px 0 #00ff66; }
+      4% { transform: translate(0, 3px); text-shadow: 2px 0 #800080, -2px 0 #00ff66; }
+      6% { transform: translate(0, 0); text-shadow: 0 0 15px rgba(0, 255, 102, 0.9); }
+      50% { transform: translate(0, 4px); text-shadow: -3px 0 #800080, 3px 0 #00ff66; }
       100% { transform: translate(0, 0); }
     }
     .escudo-container {
       position: absolute; top: 25px; right: 30px; z-index: 5; padding: 16px; border-radius: 24px;
-      background: #000b1e; border: 4px solid #00f0ff; box-shadow: 0 0 35px rgba(0, 240, 255, 0.9), inset 0 0 15px rgba(0, 240, 255, 0.5);
+      background: #05000a; border: 4px solid #00ff66; box-shadow: 0 0 35px rgba(0, 255, 102, 0.7), inset 0 0 15px rgba(128, 0, 128, 0.5);
       animation: flotarEscudo 4s ease-in-out infinite;
     }
     .escudo-img { max-width: 450px; width: 100%; height: auto; display: block; border-radius: 16px; mix-blend-mode: screen; filter: brightness(1.3) contrast(1.3); }
     @keyframes flotarEscudo {
-      0% { transform: translateY(0px); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
-      50% { transform: translateY(-8px); box-shadow: 0 0 45px rgba(0, 240, 255, 1); }
-      100% { transform: translateY(0px); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
+      0% { transform: translateY(0px); box-shadow: 0 0 30px rgba(0, 255, 102, 0.7); }
+      50% { transform: translateY(-8px); box-shadow: 0 0 45px rgba(128, 0, 128, 0.9); }
+      100% { transform: translateY(0px); box-shadow: 0 0 30px rgba(0, 255, 102, 0.7); }
     }
     .banner-update {
-      margin-top: 35px; max-width: 550px; background: rgba(0, 11, 30, 0.85); border: 2px solid #00f0ff;
-      border-radius: 12px; padding: 18px 22px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); backdrop-filter: blur(8px);
+      margin-top: 35px; max-width: 550px; background: rgba(15, 0, 30, 0.85); border: 2px solid #800080;
+      border-radius: 12px; padding: 18px 22px; box-shadow: 0 0 20px rgba(128, 0, 128, 0.5); backdrop-filter: blur(8px);
     }
     .banner-tag {
-      display: inline-block; background: #ff0055; color: #fff; font-family: 'Orbitron', sans-serif;
+      display: inline-block; background: #00ff66; color: #000; font-family: 'Orbitron', sans-serif;
       font-size: 0.75rem; font-weight: bold; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
     }
-    .banner-titulo { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #00f0ff; margin-bottom: 6px; }
+    .banner-titulo { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #00ff66; margin-bottom: 6px; }
     .banner-texto { font-size: 1.05rem; color: #e0e0e0; line-height: 1.4; }
     
     .nav-bar {
-      position: fixed; bottom: 0; left: 0; right: 0; width: 100%; background: rgba(0, 20, 60, 0.98);
+      position: fixed; bottom: 0; left: 0; right: 0; width: 100%; background: rgba(10, 0, 20, 0.98);
       backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: flex-start; gap: 12px;
-      padding: 15px 30px; border-top: 2px solid #00f0ff; box-shadow: 0 -5px 25px rgba(0, 240, 255, 0.5); flex-wrap: wrap; z-index: 999999;
+      padding: 15px 30px; border-top: 2px solid #800080; box-shadow: 0 -5px 25px rgba(0, 255, 102, 0.3); flex-wrap: wrap; z-index: 999999;
     }
     .nav-btn {
-      color: #ffffff; padding: 10px 22px; border-radius: 8px; background-color: rgba(0, 50, 120, 0.8);
-      border: 1px solid #00f0ff; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; cursor: pointer;
+      color: #ffffff; padding: 10px 22px; border-radius: 8px; background-color: rgba(30, 0, 60, 0.8);
+      border: 1px solid #00ff66; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; cursor: pointer;
       transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 1000000; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; text-align: center;
     }
-    .nav-btn:hover { background-color: #00f0ff; color: #000000; box-shadow: 0 0 18px #00f0ff; font-weight: bold; transform: translateY(-2px); }
+    .nav-btn:hover { background-color: #00ff66; color: #000000; box-shadow: 0 0 18px #00ff66; font-weight: bold; transform: translateY(-2px); }
     
-    .btn-discord-login {
-      background: #5865F2 !important;
-      border-color: #5865F2 !important;
-    }
-    .btn-discord-login:hover {
-      background: #4752C4 !important;
-      color: #ffffff !important;
-      box-shadow: 0 0 18px #5865F2 !important;
-    }
+    .btn-discord-login { background: #5865F2 !important; border-color: #5865F2 !important; }
+    .btn-discord-login:hover { background: #4752C4 !important; color: #ffffff !important; box-shadow: 0 0 18px #5865F2 !important; }
     .avatar-user { width: 24px; height: 24px; border-radius: 50%; }
 
     .blr-select {
-      color: #ffffff; padding: 10px 18px; border-radius: 8px; background-color: rgba(0, 50, 120, 0.9);
-      border: 2px solid #ff0055; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: bold;
-      cursor: pointer; outline: none; box-shadow: 0 0 15px rgba(255, 0, 85, 0.6); transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 1000000;
+      color: #ffffff; padding: 10px 18px; border-radius: 8px; background-color: rgba(30, 0, 60, 0.9);
+      border: 2px solid #800080; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: bold;
+      cursor: pointer; outline: none; box-shadow: 0 0 15px rgba(128, 0, 128, 0.6); transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 1000000;
     }
-    .blr-select:hover, .blr-select:focus { background-color: #ff0055; color: #ffffff; box-shadow: 0 0 25px #ff0055; transform: translateY(-2px); }
-    .blr-select option { background-color: #000b1e; color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; }
+    .blr-select:hover, .blr-select:focus { background-color: #800080; color: #ffffff; box-shadow: 0 0 25px #800080; transform: translateY(-2px); }
+    .blr-select option { background-color: #05000a; color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; }
     
     .seccion-header { margin-bottom: 25px; }
-    .seccion-titulo { font-family: 'Orbitron', sans-serif; font-size: 2.3rem; color: #ffffff; margin-top: 15px; text-shadow: 0 0 15px rgba(0, 240, 255, 0.9); }
+    .seccion-titulo { font-family: 'Orbitron', sans-serif; font-size: 2.3rem; color: #ffffff; margin-top: 15px; text-shadow: 0 0 15px rgba(0, 255, 102, 0.9); }
     .btn-volver {
-      display: inline-block; padding: 8px 18px; background-color: #00f0ff; color: #000000;
+      display: inline-block; padding: 8px 18px; background-color: #00ff66; color: #000000;
       font-family: 'Orbitron', sans-serif; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.5); transition: all 0.3s ease; position: relative; z-index: 20;
+      box-shadow: 0 0 12px rgba(0, 255, 102, 0.5); transition: all 0.3s ease; position: relative; z-index: 20;
     }
     .btn-volver:hover { background-color: #ffffff; box-shadow: 0 0 20px #ffffff; }
     .reglas-grid { display: flex; flex-direction: column; gap: 18px; max-width: 900px; }
     .regla-card {
-      background: rgba(0, 30, 80, 0.8); border-left: 5px solid #00f0ff; padding: 20px 25px;
-      border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);
+      background: rgba(15, 0, 35, 0.85); border-left: 5px solid #00ff66; padding: 20px 25px;
+      border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
     }
-    .regla-titulo { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: #00f0ff; margin-bottom: 10px; }
+    .regla-titulo { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: #00ff66; margin-bottom: 10px; }
     .regla-texto { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: #ffffff; line-height: 1.5; font-weight: 600; }
     .regla-texto ul { list-style-type: disc; padding-left: 22px; }
-    .sancion-highlight { color: #00f0ff; font-weight: bold; }
+    .sancion-highlight { color: #800080; font-weight: bold; text-shadow: 0 0 8px rgba(128,0,128,0.8); }
     .filtros-estilos { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
     .btn-filtro {
-      background: rgba(0, 11, 30, 0.8); border: 1px solid #00f0ff; color: #ffffff; padding: 8px 16px;
+      background: rgba(10, 0, 20, 0.8); border: 1px solid #800080; color: #ffffff; padding: 8px 16px;
       border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 20;
     }
-    .btn-filtro:hover, .btn-filtro.activo { background: #00f0ff; color: #000; box-shadow: 0 0 15px #00f0ff; font-weight: bold; }
+    .btn-filtro:hover, .btn-filtro.activo { background: #800080; color: #fff; box-shadow: 0 0 15px #800080; font-weight: bold; }
     .estilos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; }
     .estilo-card {
-      background: rgba(0, 15, 45, 0.85); border: 2px solid #00f0ff; border-radius: 12px; padding: 20px;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: space-between;
+      background: rgba(12, 0, 25, 0.85); border: 2px solid #800080; border-radius: 12px; padding: 20px;
+      box-shadow: 0 0 15px rgba(128, 0, 128, 0.4); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: space-between;
     }
     .badge-rareza {
       display: inline-block; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold;
       padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
     }
-    .badge-master { background: linear-gradient(90deg, #ff0055, #ff5500); color: #fff; }
-    .badge-worldclass { background: linear-gradient(90deg, #aa00ff, #00f0ff); color: #fff; }
-    .badge-mythic { background: #ff0055; color: #fff; }
-    .badge-legendary { background: #ffaa00; color: #000; }
-    .badge-epic { background: #00f0ff; color: #000; }
+    .badge-master { background: linear-gradient(90deg, #800080, #00ff66); color: #000; }
+    .badge-worldclass { background: linear-gradient(90deg, #aa00ff, #00ff66); color: #000; }
+    .badge-epic { background: #800080; color: #fff; }
     .badge-rare { background: #00ff66; color: #000; }
     .estilo-nombre { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #ffffff; margin-bottom: 6px; }
-    .estilo-rol { font-size: 0.95rem; color: #00f0ff; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
+    .estilo-rol { font-size: 0.95rem; color: #00ff66; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
     .estilo-desc { font-size: 1.05rem; color: #d0d0d0; line-height: 1.4; margin-bottom: 15px; }
     .mas-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
     .form-bug, .form-sug, .form-cmd { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; position: relative; z-index: 20; }
     
-    /* CAMPO DE USUARIO AUTOMÁTICO (NO EDITABLE) */
     .user-badge-box {
-      background: rgba(0, 15, 45, 0.95);
-      border: 1px solid #00f0ff;
-      border-radius: 6px;
-      padding: 12px;
-      color: #00f0ff;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      background: rgba(15, 0, 30, 0.95); border: 1px solid #800080; border-radius: 6px; padding: 12px;
+      color: #00ff66; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
     }
 
     .form-textarea {
-      background: rgba(0, 10, 30, 0.9); border: 1px solid #00f0ff; border-radius: 6px; padding: 12px;
-      color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; position: relative; z-index: 20;
+      background: rgba(10, 0, 20, 0.9); border: 1px solid #800080; border-radius: 6px; padding: 12px;
+      color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; resize: vertical; min-height: 100px; position: relative; z-index: 20;
     }
-    .form-textarea { resize: vertical; min-height: 100px; }
-    .form-textarea:focus { border-color: #ff0055; box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
+    .form-textarea:focus { border-color: #00ff66; box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); }
+    .form-input {
+      background: rgba(10, 0, 20, 0.9); border: 1px solid #800080; border-radius: 6px; padding: 12px;
+      color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; width: 100%;
+    }
+    .form-input:focus { border-color: #00ff66; box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); }
+    
     .btn-enviar {
-      background: #ff0055; color: #fff; font-family: 'Orbitron', sans-serif; font-weight: bold; border: none;
+      background: #800080; color: #fff; font-family: 'Orbitron', sans-serif; font-weight: bold; border: none;
       padding: 12px; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 20;
     }
-    .btn-enviar:hover { background: #fff; color: #000; box-shadow: 0 0 15px #fff; }
+    .btn-enviar:hover { background: #00ff66; color: #000; box-shadow: 0 0 15px #00ff66; }
     .patch-lista { list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
-    .patch-item { background: rgba(0, 20, 50, 0.6); border-left: 3px solid #ff0055; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
-    .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00f0ff; margin-bottom: 3px; }
+    .patch-item { background: rgba(20, 0, 40, 0.6); border-left: 3px solid #800080; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
+    .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ff66; margin-bottom: 3px; }
 
     .editando-activo [contenteditable="true"] {
-      border: 2px dashed #00ff66 !important;
-      background: rgba(0, 255, 102, 0.1) !important;
-      padding: 5px;
-      outline: none;
-      position: relative;
-      z-index: 30;
+      border: 2px dashed #00ff66 !important; background: rgba(0, 255, 102, 0.1) !important; padding: 5px; outline: none; position: relative; z-index: 30;
     }
 
     @media (max-width: 768px) {
@@ -223,8 +220,8 @@
     <button onclick="abrirSeccion('blr-amis')" class="nav-btn">BLR-AMIS</button>
     <button onclick="abrirSeccion('blr-ofix')" class="nav-btn">BLR-OFIX</button>
     <button onclick="abrirSeccion('fichajes')" class="nav-btn">FICHAJES</button>
-    <button onclick="abrirSeccion('periodico')" class="nav-btn" style="border-color: #ff0055; background: rgba(255, 0, 85, 0.2);">📰 PERIÓDICO</button>
-    <button onclick="abrirSeccion('cmd')" class="nav-btn" style="border-color: #00f0ff; background: rgba(0, 240, 255, 0.2);">🛠️ CmD</button>
+    <button onclick="abrirSeccion('periodico')" class="nav-btn" style="border-color: #800080; background: rgba(128, 0, 128, 0.2);">📰 PERIÓDICO</button>
+    <button onclick="abrirSeccion('cmd')" class="nav-btn" style="border-color: #00ff66; background: rgba(0, 255, 102, 0.2);">🛠️ CmD</button>
     <button onclick="abrirSeccion('sugerencias')" class="nav-btn">SUGERENCIAS</button>
     <button onclick="abrirSeccion('mas')" class="nav-btn">MÁS... 🔍</button>
   </div>
@@ -357,7 +354,7 @@
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">⚡ Chigiri</div>
           <div class="estilo-rol">Velocista</div>
-          <div class="estilo-desc">Se aplica Regla de Dash. No podrá hacer gol dentro del área del GK Rival si se utiliza Speedster + Flow Tier 2. (Solo podrá si es el único flow tier 2 del equipo)</div>
+          <div class="estilo-desc">Se aplica Regla de Dash. No podrá hacer gol dentro del área del GK Rival si se utiliza Speedster + Flow Tier 2.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
@@ -376,198 +373,6 @@
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🐦 Karasu</div>
-          <div class="estilo-rol">Mediocampista</div>
-          <div class="estilo-desc">Se aplica Regla de Offside.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🦈 Kurona</div>
-          <div class="estilo-rol">Lateral</div>
-          <div class="estilo-desc">Se aplica Regla de Offside. 3 Usos máximo de su Shark Steal por tiempo.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🥷 Otoya</div>
-          <div class="estilo-rol">Delantero Movilidad</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">❄️ Hiori</div>
-          <div class="estilo-rol">Mediocampista</div>
-          <div class="estilo-desc">Se aplica Regla de Offside.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">⚖️ Kiyora</div>
-          <div class="estilo-rol">Mediocampista</div>
-          <div class="estilo-desc">Se aplica Regla de Offside.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🪄 Ness</div>
-          <div class="estilo-rol">Mediocampista</div>
-          <div class="estilo-desc">Se aplica Regla de Offside. Se aplica Regla di Stun/Robo.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🦁 King</div>
-          <div class="estilo-rol">Delantero</div>
-          <div class="estilo-desc">Se aplica Regla di Stun/Robo.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🐝 Bachira / NEL Bachira</div>
-          <div class="estilo-rol">Regateador</div>
-          <div class="estilo-desc">Se aplica Regla de Offside. El steal en campo rival solo se podrá usar para movilidad, osea, no se podrá robarle el balón al rival con este move.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">💀 Nagi / NEL Nagi</div>
-          <div class="estilo-rol">Controlador / Delantero</div>
-          <div class="estilo-desc">Se aplica Regla de Dash. Se aplica Regla di Stun/Robo al “Trap Defensivo”. Si utiliza “Trap Cancel” dentro del área del GK Rival, deberá esperar 3 segundos para hacer gol.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🏋️ Kunigami</div>
-          <div class="estilo-rol">Delantero Físico</div>
-          <div class="estilo-desc">Se aplica Regla di Stun/Robo solamente para “Body Block”.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">😈 Charles</div>
-          <div class="estilo-rol">Mediocampista Creador</div>
-          <div class="estilo-desc">Se aplica Regla di Stun/Robo. Se aplica Regla de Offside.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🐈 Yukimiya</div>
-          <div class="estilo-rol">Delantero Regateador</div>
-          <div class="estilo-desc">No se puede stunear al GK con street-dribbling (AWK). No se puede usar bugs para aumentar la distancia recorrida de sus dribbles.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">💥 Shidou</div>
-          <div class="estilo-rol">Delantero Aéreo</div>
-          <div class="estilo-desc">Se aplica Regla de Dash. No podrá hacer gol haciendo un tiro en medio de dash (Dragon Drive) con un Flow Tier 2 activado.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🐇 Bunny</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">No puede hacer gol con los movimientos de Awakening. (Bug)</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">👻 Phantom Isagi</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Solamente podrá hacer Flick + Direct shot, pero no sus otras variantes. (Baneado: Volea + Direct, M2 + Direct, otras variantes)</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🧩 NEL Isagi</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">No podrá hacer gol dentro del área del GK Rival si utiliza Omnivision + Flow Tier 2. Solamente podrá hacer Flick + Direct shot, pero no sus otras variantes.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🍪 Gingerbread Charles</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🧨 Firework Bachira</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🦴 Skeleton Nagi</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🩸 Bloodmoon Rin</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Se aplica Regla di Stun/Robo.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">😈 Demon Shidou</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">No puede hacer gol con Inferno Dragon Drive AWK. (Bug) No puede hacer Shotstack con sus tiros.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🧝 Elf Emperor</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🎄 Krampus Barou</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">No podrá hacer gol adentro del área del GK Rival si se utiliza Predator Krampus + Flow Tier 2. Solo se podrá usar Blizzard Fang Shot con Predator Krampus detrás de la media luna.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-normales">
-        <div>
-          <span class="badge-rareza badge-epic">Estilo Normal</span>
-          <div class="estilo-nombre">🐰 Easter Yukimiya</div>
-          <div class="estilo-rol">Variante Normal</div>
-          <div class="estilo-desc">Se aplica Regla di Stun/Robo solamente para su Trap.</div>
-        </div>
-      </div>
       <div class="estilo-card rarity-worldclass">
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
@@ -584,52 +389,12 @@
           <div class="estilo-desc">No puede usar subjugation mientras su compañero está realizando un tiro.</div>
         </div>
       </div>
-      <div class="estilo-card rarity-worldclass">
-        <div>
-          <span class="badge-rareza badge-worldclass">World Class</span>
-          <div class="estilo-nombre">🔆 Rin / NEL Rin</div>
-          <div class="estilo-rol">Delantero World Class</div>
-          <div class="estilo-desc">No podrá hacer gol adentro del área del GK Rival si se utiliza Destroyer Mode + Flow Tier 2.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-worldclass">
-        <div>
-          <span class="badge-rareza badge-worldclass">World Class</span>
-          <div class="estilo-nombre">⚛️ Reo / NEL Reo</div>
-          <div class="estilo-rol">Mediocampista World Class</div>
-          <div class="estilo-desc">No puede copiar estilos defensivos. Solo si es CM, puede copiar estilos defensivos y contará como un estilo defensivo. 3 EU Techs por tiempo.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-worldclass">
-        <div>
-          <span class="badge-rareza badge-worldclass">World Class</span>
-          <div class="estilo-nombre">☠️ Reaper Sae</div>
-          <div class="estilo-rol">World Class Variant</div>
-          <div class="estilo-desc">No podrá hacer gol adentro del área del GK Rival si utiliza Graveyard + Flow Tier 2. Se aplica Regla de Offside. No puede utilizar Death Call dentro del área. No puede hacer gol con Execution Shot AWK.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-worldclass">
-        <div>
-          <span class="badge-rareza badge-worldclass">World Class</span>
-          <div class="estilo-nombre">🐈‍⬛ NEL Chigiri</div>
-          <div class="estilo-rol">World Class Variant</div>
-          <div class="estilo-desc">Se aplica Regla de Dash. No podrá hacer gol dentro del área del GK Rival si se utiliza Speedster + Flow Tier 2.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-worldclass">
-        <div>
-          <span class="badge-rareza badge-worldclass">World Class</span>
-          <div class="estilo-nombre">👺 NEL Shidou</div>
-          <div class="estilo-rol">World Class Variant</div>
-          <div class="estilo-desc">Solo se puede hacer gol con Dragonic Volley si es antes del semicírculo del arco del GK Rival. No puedes robarle el balón al rival con Dragonic Volley. No se puede combinar con “Dragon Drive” de Shidou Normal.</div>
-        </div>
-      </div>
       <div class="estilo-card rarity-master">
         <div>
           <span class="badge-rareza badge-master">Master Class</span>
           <div class="estilo-nombre">⚜️ Loki</div>
           <div class="estilo-rol">Delantero / Velocista Supremo</div>
-          <div class="estilo-desc">Sin Reglas. Master Class equivale a 2 World Class (En amistosos equivale a 1 WC).</div>
+          <div class="estilo-desc">Sin Reglas. Master Class equivale a 2 World Class.</div>
         </div>
       </div>
       <div class="estilo-card rarity-master">
@@ -638,30 +403,6 @@
           <div class="estilo-nombre">🦋 Lavinho</div>
           <div class="estilo-rol">Creador / Danzarín</div>
           <div class="estilo-desc">Sin Reglas. Master Class equivale a 2 World Class.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-master">
-        <div>
-          <span class="badge-rareza badge-master">Master Class</span>
-          <div class="estilo-nombre">🎅 Santa Lavinho</div>
-          <div class="estilo-rol">Master Class Variant</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-master">
-        <div>
-          <span class="badge-rareza badge-master">Master Class</span>
-          <div class="estilo-nombre">🧊 Frost Loki</div>
-          <div class="estilo-rol">Master Class Variant</div>
-          <div class="estilo-desc">Sin Reglas.</div>
-        </div>
-      </div>
-      <div class="estilo-card rarity-master">
-        <div>
-          <span class="badge-rareza badge-master">Master Class</span>
-          <div class="estilo-nombre">🔵 Goku</div>
-          <div class="estilo-rol">Master Class (Meme)</div>
-          <div class="estilo-desc">Prohibido hacer Kamehameha a la portería. Prohibido matar a un jugador con la genkidama.</div>
         </div>
       </div>
     </div>
@@ -675,24 +416,21 @@
     <div class="reglas-grid" style="max-width: 700px;">
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">🔐 Verificación de Staff</div>
-        
         <form class="form-cmd" id="formVerificacion" onsubmit="verificarCodigoCmd(event)" style="margin-top: 10px;">
           <input type="password" class="form-input" id="codigoAcceso" placeholder="Ingresa código de staff..." required>
           <button type="submit" class="btn-enviar">Verificar Código</button>
         </form>
         <div id="resultadoCmd" style="margin-top: 10px; font-family: 'Orbitron', sans-serif; font-size: 0.95rem;"></div>
 
-        <div id="panelControlesStaff" style="display: none; margin-top: 20px; border-top: 1px solid rgba(0, 240, 255, 0.3); padding-top: 15px; flex-direction: column; gap: 12px;">
+        <div id="panelControlesStaff" style="display: none; margin-top: 20px; border-top: 1px solid rgba(0, 255, 102, 0.3); padding-top: 15px; flex-direction: column; gap: 12px;">
           <div class="regla-titulo" style="font-size: 1.1rem; color: #00ff66;">Panel de Edición Autorizado</div>
           <button onclick="alternarModoEdicion()" id="btnModoEdicion" class="btn-enviar" style="background: #00ff66; color: #000; width: 100%;">🟢 Activar Modo Edición Directa</button>
-          <button onclick="guardarCambiosLocal()" class="btn-enviar" style="background: #00f0ff; color: #000; width: 100%;">💾 Guardar Cambios (Local)</button>
+          <button onclick="guardarCambiosLocal()" class="btn-enviar" style="background: #800080; color: #fff; width: 100%;">💾 Guardar Cambios (Local)</button>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- BUZÓN DE SUGERENCIAS CORREGIDO (SIN INPUT MANUAL) -->
   <div id="sugerencias" class="seccion-pantalla">
     <div class="seccion-header">
       <button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button>
@@ -701,16 +439,8 @@
     <div class="reglas-grid" style="max-width: 700px;">
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">💡 Envía tu Idea para la Wiki o la Liga</div>
-        <div class="regla-texto" style="font-size: 1rem; margin-bottom: 15px;">
-          ¿Tienes una idea genial para agregar a la página, nuevas secciones o mejorar la liga? Escríbela aquí abajo.
-        </div>
-        
         <form class="form-sug" onsubmit="enviarSugerencia(event)">
-          <!-- AQUÍ ESTÁ EL CAMBIO: Ya no hay input de texto, se muestra automáticamente tu usuario de Discord -->
-          <div id="sugUserDisplay" class="user-badge-box">
-            <span>👤 Conectando con Discord...</span>
-          </div>
-
+          <div id="sugUserDisplay" class="user-badge-box"><span>👤 Conectando con Discord...</span></div>
           <textarea class="form-textarea" id="sugDesc" placeholder="Describe tu idea o sugerencia detalladamente..." required></textarea>
           <button type="submit" class="btn-enviar" id="btnEnviarSug">Enviar Sugerencia</button>
         </form>
@@ -726,13 +456,8 @@
     <div class="mas-container">
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">🛠️ Reportar Bug de la Página</div>
-        <div class="regla-texto" style="font-size: 1rem; margin-bottom: 10px;">
-          Describe el error que encontraste.
-        </div>
         <form class="form-bug" onsubmit="enviarReporte(event)">
-          <div id="bugUserDisplay" class="user-badge-box">
-            <span>👤 Conectando con Discord...</span>
-          </div>
+          <div id="bugUserDisplay" class="user-badge-box"><span>👤 Conectando con Discord...</span></div>
           <textarea class="form-textarea" id="bugDesc" placeholder="Describe el error que encontraste..." required></textarea>
           <button type="submit" class="btn-enviar" id="btnEnviarBug">Enviar Reporte</button>
         </form>
@@ -742,70 +467,33 @@
           <div class="regla-titulo">📋 Historial de Cambios (Patch Notes)</div>
           <ul class="patch-lista">
             <li class="patch-item">
-              <div class="patch-date">25 JULIO 2026</div>
-              <div>Sistema de guardado local optimizado para máxima velocidad.</div>
+              <div class="patch-date">6 AGOSTO 2026</div>
+              <div>Transición de glitch pro optimizada (negro, morado y verde neón).</div>
             </li>
           </ul>
-        </div>
-        <div class="regla-card" style="margin:0;">
-          <div class="regla-titulo">🌐 Enlaces de la Comunidad</div>
-          <div class="regla-texto" style="font-size: 1.05rem;">
-            Únete a nuestro servidor oficial de Discord.
-          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div id="blr-amis" class="seccion-pantalla">
-    <div class="seccion-header">
-      <button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button>
-      <h1 class="seccion-titulo" id="seccionAmisTitulo">Estilo: BLR-AMIS</h1>
-    </div>
-    <div class="reglas-grid" id="gridAmis">
-      <div class="regla-card">
-        <div class="regla-titulo">📜 Normas de Partidas Amistosas (Scrims)</div>
-        <div class="regla-texto">Normativa interna para pruebas de nuevos jugadores en el team.</div>
-      </div>
-    </div>
+    <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">Estilo: BLR-AMIS</h1></div>
+    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo">📜 Normas de Partidas Amistosas</div><div class="regla-texto">Normativa interna para pruebas de nuevos jugadores.</div></div></div>
   </div>
 
   <div id="blr-ofix" class="seccion-pantalla">
-    <div class="seccion-header">
-      <button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button>
-      <h1 class="seccion-titulo" id="seccionOfixTitulo">Estilo: BLR-OFIX</h1>
-    </div>
-    <div class="reglas-grid" id="gridOfix">
-      <div class="regla-card">
-        <div class="regla-titulo">🎮 Partidos Oficiales y Fair Play</div>
-        <div class="regla-texto">Prohibido hacks, exploits, macros o cualquier ventaja no permitida.</div>
-      </div>
-    </div>
+    <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">Estilo: BLR-OFIX</h1></div>
+    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo">🎮 Partidos Oficiales y Fair Play</div><div class="regla-texto">Prohibido hacks, exploits o macros.</div></div></div>
   </div>
 
   <div id="fichajes" class="seccion-pantalla">
-    <div class="seccion-header">
-      <button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button>
-      <h1 class="seccion-titulo" id="seccionFichajesTitulo">Sistema de Fichajes</h1>
-    </div>
-    <div class="reglas-grid" id="gridFichajes">
-      <div class="regla-card">
-        <div class="regla-titulo">🤖 Fichajes con Bots de Discord</div>
-        <div class="regla-texto">Gestionados mediante comandos del bot en el canal <code>#fichajes</code>.</div>
-      </div>
-    </div>
+    <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">Sistema de Fichajes</h1></div>
+    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo">🤖 Fichajes con Bots</div><div class="regla-texto">Gestionados mediante comandos del bot en el canal correspondiente.</div></div></div>
   </div>
 
   <div id="periodico" class="seccion-pantalla">
-    <div class="seccion-header">
-      <button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button>
-      <h1 class="seccion-titulo" id="seccionPeriodicoTitulo">📰 El Periódico Diario de la Liga</h1>
-    </div>
-    <div class="reglas-grid" style="max-width: 900px;" id="contenedorNoticias">
-      <div class="regla-card">
-        <div class="regla-titulo" contenteditable="false" data-id="tit1">⚡ Arranca la Nueva Temporada del Team</div>
-      </div>
-    </div>
+    <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">📰 El Periódico Diario</h1></div>
+    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo" contenteditable="false" data-id="tit1">⚡ Arranca la Nueva Temporada del Team</div></div></div>
   </div>
 
   <script>
@@ -829,21 +517,17 @@
 
       if (accessToken) {
         window.history.replaceState({}, document.title, window.location.pathname);
-
         try {
           const res = await fetch('https://discord.com/api/v10/users/@me', {
             headers: { authorization: `Bearer ${accessToken}` }
           });
-
           if (res.ok) {
             const userData = await res.json();
             const usuarioAutenticado = {
               id: userData.id,
               username: userData.username,
               globalName: userData.global_name || userData.username,
-              avatar: userData.avatar 
-                ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`
-                : 'https://cdn.discordapp.com/embed/avatars/0.png'
+              avatar: userData.avatar ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png'
             };
             localStorage.setItem("discord_user", JSON.stringify(usuarioAutenticado));
             aplicarUsuarioEnForms(usuarioAutenticado);
@@ -854,11 +538,7 @@
       } else {
         const usuarioGuardado = localStorage.getItem("discord_user");
         if (usuarioGuardado) {
-          try {
-            aplicarUsuarioEnForms(JSON.parse(usuarioGuardado));
-          } catch (e) {
-            localStorage.removeItem("discord_user");
-          }
+          try { aplicarUsuarioEnForms(JSON.parse(usuarioGuardado)); } catch (e) { localStorage.removeItem("discord_user"); }
         } else {
           mostrarFaltaLogin();
         }
@@ -873,23 +553,17 @@
         btn.style.borderColor = "#2d7d46";
         btn.onclick = cerrarSesion;
       }
-
       const sugBox = document.getElementById('sugUserDisplay');
-      if (sugBox) {
-        sugBox.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Enviando como: <b>${user.globalName}</b> (@${user.username})</span>`;
-      }
-
+      if (sugBox) sugBox.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Enviando como: <b>${user.globalName}</b> (@${user.username})</span>`;
       const bugBox = document.getElementById('bugUserDisplay');
-      if (bugBox) {
-        bugBox.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Enviando como: <b>${user.globalName}</b> (@${user.username})</span>`;
-      }
+      if (bugBox) bugBox.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Enviando como: <b>${user.globalName}</b> (@${user.username})</span>`;
     }
 
     function mostrarFaltaLogin() {
       const sugBox = document.getElementById('sugUserDisplay');
-      if (sugBox) sugBox.innerHTML = `<span style="color:#ff0055;">⚠️ Inicia sesión arriba con Discord para enviar sugerencias.</span>`;
+      if (sugBox) sugBox.innerHTML = `<span style="color:#00ff66;">⚠️ Inicia sesión arriba con Discord para enviar sugerencias.</span>`;
       const bugBox = document.getElementById('bugUserDisplay');
-      if (bugBox) bugBox.innerHTML = `<span style="color:#ff0055;">⚠️ Inicia sesión arriba con Discord para reportar bugs.</span>`;
+      if (bugBox) bugBox.innerHTML = `<span style="color:#00ff66;">⚠️ Inicia sesión arriba con Discord para reportar bugs.</span>`;
     }
 
     function cerrarSesion() {
@@ -911,7 +585,13 @@
         secciones[i].classList.remove('activa');
       }
       let target = document.getElementById(id);
-      if (target) target.classList.add('activa');
+      if (target) {
+        // Reinicia la animación glitch en cada clic para que se ejecute de nuevo con fluidez
+        target.style.animation = 'none';
+        target.offsetHeight; 
+        target.style.animation = null;
+        target.classList.add('activa');
+      }
       window.scrollTo(0, 0);
     }
 
@@ -935,13 +615,11 @@
       let btnGuardar = document.querySelector('button[onclick="guardarCambiosLocal()"]');
       let textoOriginal = btnGuardar.innerHTML;
       btnGuardar.innerHTML = "⏳ Guardando...";
-      
       let elementosEditables = document.querySelectorAll('[data-id]');
       elementosEditables.forEach(el => {
         let id = el.getAttribute('data-id');
         localStorage.setItem("wiki_flow_" + id, el.innerHTML);
       });
-
       setTimeout(() => {
         alert("¡Cambios guardados exitosamente en el navegador!");
         btnGuardar.innerHTML = textoOriginal;
@@ -959,7 +637,11 @@
     function volverInicio() {
       let secciones = document.getElementsByClassName('seccion-pantalla');
       for (let i = 0; i < secciones.length; i++) secciones[i].classList.remove('activa');
-      document.getElementById('inicio').classList.add('activa');
+      let inicio = document.getElementById('inicio');
+      inicio.style.animation = 'none';
+      inicio.offsetHeight;
+      inicio.style.animation = null;
+      inicio.classList.add('activa');
       window.scrollTo(0, 0);
     }
 
@@ -982,7 +664,7 @@
         resultadoDiv.innerHTML = "✅ ¡Código verificado correctamente!";
         panelControles.style.display = 'flex';
       } else {
-        resultadoDiv.style.color = '#ff0055';
+        resultadoDiv.style.color = '#800080';
         resultadoDiv.innerHTML = "❌ Código incorrecto.";
         panelControles.style.display = 'none';
       }
@@ -995,7 +677,7 @@
       let btnEdit = document.getElementById('btnModoEdicion');
       if (modoEdicionActivo) {
         cuerpo.classList.add('editando-activo');
-        btnEdit.style.background = '#ff0055';
+        btnEdit.style.background = '#800080';
         btnEdit.innerHTML = "🔴 Desactivar Modo Edición";
         document.querySelectorAll('[data-id]').forEach(el => el.setAttribute('contenteditable', 'true'));
       } else {
@@ -1006,47 +688,29 @@
       }
     }
 
-    // ENVÍO DE REPORTE CON COPIA AL PORTAPAPELES (SIN "ÉXITO" FALSO)
     function enviarReporte(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
-      if (!usuarioGuardado) {
-        alert("🔒 Debes iniciar sesión con Discord primero.");
-        return;
-      }
+      if (!usuarioGuardado) { alert("🔒 Debes iniciar sesión con Discord primero."); return; }
       const usuario = JSON.parse(usuarioGuardado);
       const descripcion = document.getElementById('bugDesc').value;
-
       const textoFormateado = `[REPORTE WIKI] Usuario: ${usuario.globalName} (@${usuario.username}) | ID: ${usuario.id} | Problema: ${descripcion}`;
-
       navigator.clipboard.writeText(textoFormateado).then(() => {
         alert("✅ ¡Reporte copiado al portapapeles con tu usuario de Discord listo para tu bot!");
-      }).catch(() => {
-        alert("Reporte listo para: " + usuario.globalName + "\n" + descripcion);
       });
-
       document.getElementById('bugDesc').value = '';
     }
 
-    // ENVÍO DE SUGERENCIA CON COPIA AL PORTAPAPELES (SIN "ÉXITO" FALSO)
     function enviarSugerencia(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
-      if (!usuarioGuardado) {
-        alert("🔒 Debes iniciar sesión con Discord primero.");
-        return;
-      }
+      if (!usuarioGuardado) { alert("🔒 Debes iniciar sesión con Discord primero."); return; }
       const usuario = JSON.parse(usuarioGuardado);
       const sugerenciaTexto = document.getElementById('sugDesc').value;
-
       const textoFormateado = `[SUGERENCIA WIKI] Usuario: ${usuario.globalName} (@${usuario.username}) | ID: ${usuario.id} | Idea: ${sugerenciaTexto}`;
-
       navigator.clipboard.writeText(textoFormateado).then(() => {
         alert("✅ ¡Sugerencia copiada al portapapeles con tu usuario de Discord listo para tu bot!");
-      }).catch(() => {
-        alert("Sugerencia lista para: " + usuario.globalName + "\n" + sugerenciaTexto);
       });
-
       document.getElementById('sugDesc').value = '';
     }
   </script>
