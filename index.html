@@ -865,7 +865,7 @@
             localStorage.setItem("discord_user", JSON.stringify(usuarioAutenticado));
             actualizarInterfazUsuario(usuarioAutenticado);
           } else {
-            alert("Error al verificar la cuenta en los servidores de Discord.");
+            console.error("Error al verificar la cuenta en los servidores de Discord.");
           }
         } catch (error) {
           console.error("Error conectando con Discord API:", error);
@@ -873,7 +873,11 @@
       } else {
         const usuarioGuardado = localStorage.getItem("discord_user");
         if (usuarioGuardado) {
-          actualizarInterfazUsuario(JSON.parse(usuarioGuardado));
+          try {
+            actualizarInterfazUsuario(JSON.parse(usuarioGuardado));
+          } catch (e) {
+            localStorage.removeItem("discord_user");
+          }
         }
       }
     }
@@ -1056,7 +1060,6 @@
       }
     }
 
-    // Funciones parchadas que extraen el usuario logueado automáticamente sin inputs falsos
     function enviarReporte(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
