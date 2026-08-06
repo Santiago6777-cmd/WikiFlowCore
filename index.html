@@ -690,7 +690,6 @@
           ¿Tienes una idea genial para agregar a la página, nuevas secciones o mejorar la liga? Escríbela aquí abajo.
         </div>
         <form class="form-sug" onsubmit="enviarSugerencia(event)">
-          <input type="text" class="form-input" id="sugUser" placeholder="Tu usuario de Discord" required>
           <textarea class="form-textarea" id="sugDesc" placeholder="Describe tu idea o sugerencia detalladamente..." required></textarea>
           <button type="submit" class="btn-enviar" id="btnEnviarSug">Enviar Sugerencia</button>
         </form>
@@ -710,7 +709,6 @@
           ¿Encontraste un error visual, un botón que no funciona o falló en tu celular? Cuéntanos para solucionarlo.
         </div>
         <form class="form-bug" onsubmit="enviarReporte(event)">
-          <input type="text" class="form-input" id="bugUser" placeholder="Tu usuario de Discord" required>
           <input type="text" class="form-input" id="bugDevice" placeholder="Dispositivo (Ej: iPhone, Android, PC)" required>
           <textarea class="form-textarea" id="bugDesc" placeholder="Describe el error que encontraste..." required></textarea>
           <button type="submit" class="btn-enviar" id="btnEnviarBug">Enviar Reporte</button>
@@ -1058,18 +1056,38 @@
       }
     }
 
+    // Funciones parchadas que extraen el usuario logueado automáticamente sin inputs falsos
     function enviarReporte(event) {
       event.preventDefault();
+      const usuarioGuardado = localStorage.getItem("discord_user");
+      if (!usuarioGuardado) {
+        alert("🔒 Debes iniciar sesión con Discord primero para reportar un bug.");
+        return;
+      }
+      const usuario = JSON.parse(usuarioGuardado);
+      const dispositivo = document.getElementById('bugDevice').value;
+      const descripcion = document.getElementById('bugDesc').value;
+
+      console.log(`Reporte de ${usuario.globalName} (${dispositivo}): ${descripcion}`);
       alert("¡Reporte enviado con éxito de forma local!");
-      document.getElementById('bugUser').value = '';
+      
       document.getElementById('bugDevice').value = '';
       document.getElementById('bugDesc').value = '';
     }
 
     function enviarSugerencia(event) {
       event.preventDefault();
+      const usuarioGuardado = localStorage.getItem("discord_user");
+      if (!usuarioGuardado) {
+        alert("🔒 Debes iniciar sesión con Discord primero para enviar una sugerencia.");
+        return;
+      }
+      const usuario = JSON.parse(usuarioGuardado);
+      const sugerenciaTexto = document.getElementById('sugDesc').value;
+
+      console.log(`Sugerencia de ${usuario.globalName}: ${sugerenciaTexto}`);
       alert("¡Sugerencia enviada con éxito de forma local!");
-      document.getElementById('sugUser').value = '';
+      
       document.getElementById('sugDesc').value = '';
     }
   </script>
