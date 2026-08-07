@@ -586,7 +586,6 @@
       }
       let target = document.getElementById(id);
       if (target) {
-        // Reinicia la animación glitch en cada clic para que se ejecute de nuevo con fluidez
         target.style.animation = 'none';
         target.offsetHeight; 
         target.style.animation = null;
@@ -711,7 +710,7 @@
       navigator.clipboard.writeText(textoFormateado).then(() => {
         alert("✅ ¡Sugerencia copiada al portapapeles con tu usuario de Discord listo para tu bot!");
       });
-      document.getElementById('sugDesc').value = '';   
+      document.getElementById('sugDesc').value = '';
     }
   </script>
 
