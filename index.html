@@ -168,6 +168,15 @@
     .patch-item { background: rgba(20, 0, 40, 0.6); border-left: 3px solid #800080; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
     .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ff66; margin-bottom: 3px; }
 
+    /* ESTILOS MODO CONSTRUCTOR ACTIVO */
+    .modo-constructor-activo [contenteditable="true"] {
+      outline: 2px dashed #00ff66 !important;
+      background: rgba(0, 255, 102, 0.08) !important;
+      cursor: text !important;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
     /* ESTILOS PARA BANDEJA DE STAFF TIPO NVIDIA HUD */
     .admin-hud-container {
       display: none;
@@ -308,8 +317,8 @@
         <div class="titulo" id="tituloPrincipal">WIKI DE<br>FLOW CORE</div>
         <div class="banner-update">
           <span class="banner-tag">⚽ BL Rivals Update</span>
-          <div class="banner-titulo">Novedades del Juego</div>
-          <div class="banner-texto">
+          <div class="banner-titulo" id="edit-banner-titulo" data-key="banner_titulo">Novedades del Juego</div>
+          <div class="banner-texto" id="edit-banner-texto" data-key="banner_texto">
             Consulta los últimos reworks, nerfeos y nuevos estilos añadidos a Blue Lock Rivals. ¡Mantén tu equipo al día con el meta de la liga!
           </div>
         </div>
@@ -822,7 +831,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">7 AGOSTO 2026</div>
-              <div>Actualización masiva: Todos los estilos integrados correctamente en la enciclopedia de BLR.</div>
+              <div id="edit-patch-desc" data-key="patch_desc">Actualización masiva: Todos los estilos integrados correctamente en la enciclopedia de BLR.</div>
             </li>
           </ul>
         </div>
@@ -867,7 +876,11 @@
 
   <div id="periodico" class="seccion-pantalla">
     <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">📰 El Periódico Diario</h1></div>
-    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo">⚡ Arranca la Nueva Temporada del Team</div></div></div>
+    <div class="reglas-grid">
+      <div class="regla-card">
+        <div class="regla-titulo" id="edit-periodico-titulo" data-key="periodico_titulo">⚡ Arranca la Nueva Temporada del Team</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -902,6 +915,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       verificarRespuestaDiscord();
+      cargarTextosGuardados();
     });
 
     async function verificarRespuestaDiscord() {
@@ -1107,12 +1121,66 @@
     }
 
     function activarModoConstructor() {
-      mostrarAvisoChulo("Modo Constructor activo: Ya puedes editar textos directamente en la página.");
-      // Aquí se pueden habilitar atributos de edición rápida en los títulos si se desea
+      document.body.classList.toggle('modo-constructor-activo');
+      const activo = document.body.classList.contains('modo-constructor-activo');
+      
+      document.querySelectorAll('[data-key]').forEach(el => {
+        el.setAttribute('contenteditable', activo ? 'true' : 'false');
+      });
+
+      mostrarAvisoChulo(activo ? "Modo Constructor ACTIVO: Haz clic en los textos para editarlos." : "Modo Constructor DESACTIVADO.");
     }
 
-    function guardarEnLaNube() {
-      mostrarAvisoChulo("¡Cambios guardados con éxito en la nube! ☁️⚡");
+    function cargarTextosGuardados() {
+      const guardados = JSON.parse(localStorage.getItem('wiki_textos_editados') || '{}');
+      for (const [key, text] of Object.entries(guardados)) {
+        const elemento = document.querySelector(`[data-key="${key}"]`);
+        if (elemento) {
+          elemento.innerText = text;
+        }
+      }
+    }
+
+    async function guardarEnLaNube() {
+      const usuario = JSON.parse(localStorage.getItem("discord_user") || '{"globalName":"Usuario3000"}');
+      const editables = document.querySelectorAll('[data-key]');
+      const nuevosDatos = {};
+      let cambiosTexto = [];
+
+      editables.forEach(el => {
+        const key = el.getAttribute('data-key');
+        const nuevoTexto = el.innerText.trim();
+        nuevosDatos[key] = nuevoTexto;
+        
+        // Guardar valores anteriores para comparar
+        const originalTextos = {
+          'banner_titulo': 'Novedades del Juego',
+          'banner_texto': 'Consulta los últimos reworks, nerfeos y nuevos estilos añadidos a Blue Lock Rivals. ¡Mantén tu equipo al día con el meta de la liga!',
+          'periodico_titulo': '⚡ Arranca la Nueva Temporada del Team',
+          'patch_desc': 'Actualización masiva: Todos los estilos integrados correctamente en la enciclopedia de BLR.'
+        };
+
+        const viejoTexto = localStorage.getItem(`old_${key}`) || originalTextos[key];
+        if (viejoTexto !== nuevoTexto) {
+          cambiosTexto.push(`Cambio en [${key}]:\nDe: "${viejoTexto}"\nPor: "${nuevoTexto}"`);
+          localStorage.setItem(`old_${key}`, nuevoTexto);
+        }
+      });
+
+      localStorage.setItem('wiki_textos_editados', JSON.stringify(nuevosDatos));
+
+      // Enviar reporte a Discord con el formato pedido
+      if (cambiosTexto.length > 0) {
+        const payload = {
+          content: `🚨 **Mensaje Editado por ${usuario.globalName || usuario.username}**\n\n` + cambiosTexto.join('\n\n')
+        };
+        await enviarConWebhook(payload);
+      }
+
+      document.body.classList.remove('modo-constructor-activo');
+      editables.forEach(el => el.setAttribute('contenteditable', 'false'));
+
+      mostrarAvisoChulo("¡Cambios guardados en la nube y notificados a Discord! ☁️⚡");
     }
   </script>
 </body>
