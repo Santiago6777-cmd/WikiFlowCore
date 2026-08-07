@@ -180,6 +180,8 @@
       padding: 12px; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 20;
     }
     .btn-enviar:hover { background: #00ff66; color: #000; box-shadow: 0 0 15px #00ff66; }
+    .btn-enviar:disabled { background: #4752C4; cursor: not-allowed; }
+
     .patch-lista { list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
     .patch-item { background: rgba(20, 0, 40, 0.6); border-left: 3px solid #800080; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
     .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ff66; margin-bottom: 3px; }
@@ -687,32 +689,83 @@
       }
     }
 
-    function enviarReporte(event) {
+    async function enviarReporte(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
       if (!usuarioGuardado) { alert("🔒 Debes iniciar sesión con Discord primero."); return; }
+      
       const usuario = JSON.parse(usuarioGuardado);
       const descripcion = document.getElementById('bugDesc').value;
-      const textoFormateado = `[REPORTE WIKI] Usuario: ${usuario.globalName} (@${usuario.username}) | ID: ${usuario.id} | Problema: ${descripcion}`;
-      navigator.clipboard.writeText(textoFormateado).then(() => {
-        alert("✅ ¡Reporte copiado al portapapeles con tu usuario de Discord listo para tu bot!");
-      });
-      document.getElementById('bugDesc').value = '';
+      const btn = document.getElementById('btnEnviarBug');
+      
+      btn.innerText = "Enviando...";
+      btn.disabled = true;
+
+      try {
+        const respuesta = await fetch('/api/enviar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tipo: 'reporte',
+            globalName: `${usuario.globalName} (@${usuario.username})`,
+            texto: descripcion
+          })
+        });
+
+        if (respuesta.ok) {
+          alert("✅ ¡Reporte enviado con éxito al canal por el bot!");
+          document.getElementById('bugDesc').value = '';
+        } else {
+          alert("❌ Hubo un error al enviar el reporte.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("❌ Error de conexión con el servidor.");
+      } finally {
+        btn.innerText = "Enviar Reporte";
+        btn.disabled = false;
+      }
     }
 
-    function enviarSugerencia(event) {
+    async function enviarSugerencia(event) {
       event.preventDefault();
       const usuarioGuardado = localStorage.getItem("discord_user");
       if (!usuarioGuardado) { alert("🔒 Debes iniciar sesión con Discord primero."); return; }
+      
       const usuario = JSON.parse(usuarioGuardado);
       const sugerenciaTexto = document.getElementById('sugDesc').value;
-      const textoFormateado = `[SUGERENCIA WIKI] Usuario: ${usuario.globalName} (@${usuario.username}) | ID: ${usuario.id} | Idea: ${sugerenciaTexto}`;
-      navigator.clipboard.writeText(textoFormateado).then(() => {
-        alert("✅ ¡Sugerencia copiada al portapapeles con tu usuario de Discord listo para tu bot!");
-      });
-      document.getElementById('sugDesc').value = '';
+      const btn = document.getElementById('btnEnviarSug');
+      
+      btn.innerText = "Enviando...";
+      btn.disabled = true;
+
+      try {
+        const respuesta = await fetch('/api/enviar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tipo: 'sugerencia',
+            globalName: `${usuario.globalName} (@${usuario.username})`,
+            texto: sugerenciaTexto
+          })
+        });
+
+        if (respuesta.ok) {
+          alert("✅ ¡Sugerencia enviada con éxito al canal por el bot!");
+          document.getElementById('sugDesc').value = '';
+        } else {
+          alert("❌ Hubo un error al enviar la sugerencia.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("❌ Error de conexión con el servidor.");
+      } finally {
+        btn.innerText = "Enviar Sugerencia";
+        btn.disabled = false;
+      }
     }
   </script>
 
 </body>
 </html>
+```[cite: 2]
