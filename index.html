@@ -20,34 +20,13 @@
       padding-bottom: 140px;
     }
 
-    /* EFECTO GLITCH PRO (Negro, Morado y Verde Neón - Rápido y Fluido) */
+    /* EFECTO GLITCH PRO */
     @keyframes glitchTransicionPro {
-      0% { 
-        opacity: 0; 
-        transform: translate(0, 0) scale(0.99); 
-        filter: blur(4px) hue-rotate(0deg); 
-      }
-      20% { 
-        opacity: 0.4; 
-        transform: translate(-4px, 2px); 
-        filter: drop-shadow(-3px 0 #800080) blur(2px); 
-      }
-      40% { 
-        opacity: 0.75; 
-        transform: translate(4px, -2px); 
-        filter: drop-shadow(3px 0 #00ff66) blur(1px); 
-        background-color: rgba(5, 0, 10, 0.95);
-      }
-      70% { 
-        opacity: 0.95; 
-        transform: translate(-2px, 1px); 
-        filter: drop-shadow(0 0 10px rgba(128,0,128,0.5)); 
-      }
-      100% { 
-        opacity: 1; 
-        transform: translate(0, 0) scale(1); 
-        filter: none; 
-      }
+      0% { opacity: 0; transform: translate(0, 0) scale(0.99); filter: blur(4px) hue-rotate(0deg); }
+      20% { opacity: 0.4; transform: translate(-4px, 2px); filter: drop-shadow(-3px 0 #800080) blur(2px); }
+      40% { opacity: 0.75; transform: translate(4px, -2px); filter: drop-shadow(3px 0 #00ff66) blur(1px); background-color: rgba(5, 0, 10, 0.95); }
+      70% { opacity: 0.95; transform: translate(-2px, 1px); filter: drop-shadow(0 0 10px rgba(128,0,128,0.5)); }
+      100% { opacity: 1; transform: translate(0, 0) scale(1); filter: none; }
     }
 
     .seccion-pantalla { display: none; padding: 40px; position: relative; z-index: 10; }
@@ -56,10 +35,7 @@
       animation: glitchTransicionPro 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
     }
 
-    /* Transición responsiva solicitada: mitad en PC, pantalla completa en celular */
-    .transicion-dinamica {
-      width: 50%;
-    }
+    .transicion-dinamica { width: 100%; max-width: 900px; }
 
     #inicio { position: relative; }
     .hero-content { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
@@ -106,7 +82,7 @@
     .nav-btn {
       color: #ffffff; padding: 10px 22px; border-radius: 8px; background-color: rgba(30, 0, 60, 0.8);
       border: 1px solid #00ff66; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; cursor: pointer;
-      transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 1000000; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; text-align: center;
+      transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 100000; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; text-align: center;
     }
     .nav-btn:hover { background-color: #00ff66; color: #000000; box-shadow: 0 0 18px #00ff66; font-weight: bold; transform: translateY(-2px); }
     
@@ -117,7 +93,7 @@
     .blr-select {
       color: #ffffff; padding: 10px 18px; border-radius: 8px; background-color: rgba(30, 0, 60, 0.9);
       border: 2px solid #800080; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: bold;
-      cursor: pointer; outline: none; box-shadow: 0 0 15px rgba(128, 0, 128, 0.6); transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 1000000;
+      cursor: pointer; outline: none; box-shadow: 0 0 15px rgba(128, 0, 128, 0.6); transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 100000;
     }
     .blr-select:hover, .blr-select:focus { background-color: #800080; color: #ffffff; box-shadow: 0 0 25px #800080; transform: translateY(-2px); }
     .blr-select option { background-color: #05000a; color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; }
@@ -131,40 +107,23 @@
     }
     .btn-volver:hover { background-color: #ffffff; box-shadow: 0 0 20px #ffffff; }
     .reglas-grid { display: flex; flex-direction: column; gap: 18px; max-width: 900px; }
-    
-    /* Estilo personalizado para BLR-OFIX: Bordes Verdes Neón, Morado Clarito y Letras Negras */
-    .regla-card-ofix {
-      background: #d1b3ff !important;
-      border: 2px solid #00ff66 !important;
-      border-left: 5px solid #00ff66 !important;
-      color: #000000 !important;
-      padding: 20px 25px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
-    }
-    .regla-card-ofix .regla-titulo {
-      color: #000000 !important;
-      font-weight: 900;
-    }
-    .regla-card-ofix .regla-texto {
-      color: #000000 !important;
-      font-weight: 700;
-    }
 
     .regla-card {
-      background: rgba(15, 0, 35, 0.85); border-left: 5px solid #00ff66; padding: 20px 25px;
-      border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
+      background: rgba(15, 0, 35, 0.85); border: 2px solid #800080; border-left: 5px solid #00ff66; padding: 20px 25px;
+      border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 15px rgba(128, 0, 128, 0.2); backdrop-filter: blur(8px);
     }
-    .regla-titulo { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: #00ff66; margin-bottom: 10px; }
+    .regla-titulo { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: #00ff66; margin-bottom: 10px; text-shadow: 0 0 8px rgba(0, 255, 102, 0.4); }
     .regla-texto { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: #ffffff; line-height: 1.5; font-weight: 600; }
     .regla-texto ul { list-style-type: disc; padding-left: 22px; }
     .sancion-highlight { color: #800080; font-weight: bold; text-shadow: 0 0 8px rgba(128,0,128,0.8); }
+    
     .filtros-estilos { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
     .btn-filtro {
       background: rgba(10, 0, 20, 0.8); border: 1px solid #800080; color: #ffffff; padding: 8px 16px;
       border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 20;
     }
     .btn-filtro:hover, .btn-filtro.activo { background: #800080; color: #fff; box-shadow: 0 0 15px #800080; font-weight: bold; }
+    
     .estilos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; }
     .estilo-card {
       background: rgba(12, 0, 25, 0.85); border: 2px solid #800080; border-radius: 12px; padding: 20px;
@@ -181,6 +140,7 @@
     .estilo-nombre { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #ffffff; margin-bottom: 6px; }
     .estilo-rol { font-size: 0.95rem; color: #00ff66; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
     .estilo-desc { font-size: 1.05rem; color: #d0d0d0; line-height: 1.4; margin-bottom: 15px; }
+    
     .mas-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
     .form-bug, .form-sug, .form-cmd { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; position: relative; z-index: 20; }
     
@@ -189,31 +149,49 @@
       color: #00ff66; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
     }
 
-    .form-textarea {
-      background: rgba(10, 0, 20, 0.9); border: 1px solid #800080; border-radius: 6px; padding: 12px;
-      color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; resize: vertical; min-height: 100px; position: relative; z-index: 20;
-    }
-    .form-textarea:focus { border-color: #00ff66; box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); }
-    .form-input {
+    .form-textarea, .form-input {
       background: rgba(10, 0, 20, 0.9); border: 1px solid #800080; border-radius: 6px; padding: 12px;
       color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; width: 100%;
+      text-transform: none !important;
     }
-    .form-input:focus { border-color: #00ff66; box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-textarea:focus, .form-input:focus { border-color: #00ff66; box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); }
     
     .btn-enviar {
       background: #800080; color: #fff; font-family: 'Orbitron', sans-serif; font-weight: bold; border: none;
       padding: 12px; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; position: relative; z-index: 20;
     }
     .btn-enviar:hover { background: #00ff66; color: #000; box-shadow: 0 0 15px #00ff66; }
-    .btn-enviar:disabled { background: #4752C4; cursor: not-allowed; }
 
     .patch-lista { list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
     .patch-item { background: rgba(20, 0, 40, 0.6); border-left: 3px solid #800080; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
     .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ff66; margin-bottom: 3px; }
 
-    .editando-activo [contenteditable="true"] {
-      border: 2px dashed #00ff66 !important; background: rgba(0, 255, 102, 0.1) !important; padding: 5px; outline: none; position: relative; z-index: 30;
+    /* AVISOS TOAST (ESTILO AURA: MORADO OSCURO + BORDES NEÓN VERDE + LETRAS BLANCAS) */
+    #flowcore-toast-container {
+      position: fixed; top: 30px; right: 30px; z-index: 9999999;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
     }
+    .fc-toast {
+      pointer-events: auto; background: rgba(18, 5, 35, 0.95); border: 2px solid #00ff66;
+      box-shadow: 0 0 25px rgba(0, 255, 102, 0.5), inset 0 0 15px rgba(128, 0, 128, 0.7);
+      backdrop-filter: blur(10px); padding: 16px 24px; border-radius: 10px; color: #ffffff;
+      font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 700;
+      min-width: 300px; max-width: 450px; display: flex; align-items: center; gap: 15px;
+      animation: entrarToast 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; position: relative; overflow: hidden;
+    }
+    .fc-toast.error {
+      border-color: #00ff66; box-shadow: 0 0 25px rgba(0, 255, 102, 0.6), inset 0 0 15px rgba(128, 0, 128, 0.7);
+    }
+    .fc-toast.error::after { background: #00ff66; }
+    .fc-toast::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: #00ff66;
+      animation: barraTiempo 3.5s linear forwards;
+    }
+    @keyframes entrarToast { 0% { opacity: 0; transform: translateX(100px) scale(0.9); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
+    @keyframes salirToast { 0% { opacity: 1; transform: translateX(0) scale(1); } 100% { opacity: 0; transform: translateX(100px) scale(0.9); } }
+    @keyframes barraTiempo { 0% { width: 100%; } 100% { width: 0%; } }
+    .fc-toast-icon { font-size: 1.5rem; }
 
     @media (max-width: 768px) {
       #inicio.activa { display: flex !important; flex-direction: column; align-items: center; }
@@ -225,15 +203,15 @@
       .nav-btn, .blr-select { font-size: 0.7rem; padding: 6px 10px; }
       .seccion-titulo { font-size: 1.6rem; }
       .mas-container { grid-template-columns: 1fr; }
-      
-      /* Transición de pantalla completa en celulares */
-      .transicion-dinamica {
-        width: 100% !important;
-      }
+      #flowcore-toast-container { top: 15px; right: 15px; left: 15px; }
+      .fc-toast { min-width: unset; width: 100%; }
     }
   </style>
 </head>
 <body id="cuerpoPagina">
+
+  <!-- Contenedor de Avisos -->
+  <div id="flowcore-toast-container"></div>
 
   <div class="nav-bar">
     <button id="btnLoginDiscord" onclick="iniciarSesionDiscord()" class="nav-btn btn-discord-login">
@@ -263,9 +241,9 @@
       <div>
         <div class="titulo" id="tituloPrincipal">WIKI DE<br>FLOW CORE</div>
         <div class="banner-update">
-          <span class="banner-tag" contenteditable="false" data-id="bannerTag">⚽ BL Rivals Update</span>
-          <div class="banner-titulo" contenteditable="false" data-id="bannerTit">Novedades del Juego</div>
-          <div class="banner-texto" contenteditable="false" data-id="bannerTxt">
+          <span class="banner-tag">⚽ BL Rivals Update</span>
+          <div class="banner-titulo">Novedades del Juego</div>
+          <div class="banner-texto">
             Consulta los últimos reworks, nerfeos y nuevos estilos añadidos a Blue Lock Rivals. ¡Mantén tu equipo al día con el meta de la liga!
           </div>
         </div>
@@ -453,12 +431,6 @@
           <button type="submit" class="btn-enviar">Verificar Código</button>
         </form>
         <div id="resultadoCmd" style="margin-top: 10px; font-family: 'Orbitron', sans-serif; font-size: 0.95rem;"></div>
-
-        <div id="panelControlesStaff" style="display: none; margin-top: 20px; border-top: 1px solid rgba(0, 255, 102, 0.3); padding-top: 15px; flex-direction: column; gap: 12px;">
-          <div class="regla-titulo" style="font-size: 1.1rem; color: #00ff66;">Panel de Edición Autorizado</div>
-          <button onclick="alternarModoEdicion()" id="btnModoEdicion" class="btn-enviar" style="background: #00ff66; color: #000; width: 100%;">🟢 Activar Modo Edición Directa</button>
-          <button onclick="guardarCambiosLocal()" class="btn-enviar" style="background: #800080; color: #fff; width: 100%;">💾 Guardar Cambios (Local)</button>
-        </div>
       </div>
     </div>
   </div>
@@ -472,7 +444,7 @@
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">💡 Envía tu Idea para la Wiki o la Liga</div>
         <form class="form-sug" onsubmit="enviarSugerencia(event)">
-          <div id="sugUserDisplay" class="user-badge-box"><span>👤 Conectando con Discord...</span></div>
+          <div id="sugUserDisplay" class="user-badge-box"><span>👤 Modo Anónimo (Inicia sesión para identificarte)</span></div>
           <textarea class="form-textarea" id="sugDesc" placeholder="Describe tu idea o sugerencia detalladamente..." required></textarea>
           <button type="submit" class="btn-enviar" id="btnEnviarSug">Enviar Sugerencia</button>
         </form>
@@ -489,7 +461,7 @@
       <div class="regla-card" style="margin:0;">
         <div class="regla-titulo">🛠️ Reportar Bug de la Página</div>
         <form class="form-bug" onsubmit="enviarReporte(event)">
-          <div id="bugUserDisplay" class="user-badge-box"><span>👤 Conectando con Discord...</span></div>
+          <div id="bugUserDisplay" class="user-badge-box"><span>👤 Modo Anónimo (Inicia sesión para identificarte)</span></div>
           <textarea class="form-textarea" id="bugDesc" placeholder="Describe el error que encontraste..." required></textarea>
           <button type="submit" class="btn-enviar" id="btnEnviarBug">Enviar Reporte</button>
         </form>
@@ -500,7 +472,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">6 AGOSTO 2026</div>
-              <div>Reglas de BLR-OFIX actualizadas y transiciones responsivas configuradas.</div>
+              <div>Navegación libre activada y conexión directa de reportes por Discord Webhook.</div>
             </li>
           </ul>
         </div>
@@ -519,19 +491,19 @@
       <h1 class="seccion-titulo">Estilo: BLR-OFIX</h1>
     </div>
     <div class="reglas-grid transicion-dinamica">
-      <div class="regla-card-ofix">
+      <div class="regla-card">
         <div class="regla-titulo">🎮 Partidos Oficiales y Fair Play</div>
         <div class="regla-texto">Prohibido hacks, exploits o macros.</div>
       </div>
-      <div class="regla-card-ofix">
+      <div class="regla-card">
         <div class="regla-titulo">⏳ Tiempo</div>
         <div class="regla-texto">Los equipos deben acordar el partido 10 Min antes de la hora oficial.</div>
       </div>
-      <div class="regla-card-ofix">
+      <div class="regla-card">
         <div class="regla-titulo">⚔️ Wc</div>
-        <div class="regla-texto">Como maximo son 2 Wc por partido.</div>
+        <div class="regla-texto">Como máximo son 2 Wc por partido.</div>
       </div>
-      <div class="regla-card-ofix">
+      <div class="regla-card">
         <div class="regla-titulo">🌐 Default</div>
         <div class="regla-texto">Si el equipo no se presenta en menos de 30 min pero el otro sí es Default para el equipo que sí se presentó.</div>
       </div>
@@ -545,12 +517,35 @@
 
   <div id="periodico" class="seccion-pantalla">
     <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">📰 El Periódico Diario</h1></div>
-    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo" contenteditable="false" data-id="tit1">⚡ Arranca la Nueva Temporada del Team</div></div></div>
+    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo">⚡ Arranca la Nueva Temporada del Team</div></div></div>
   </div>
 
   <script>
+    // Webhook de Discord configurado correctamente
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1535149400047878154/roGNeEbQvNTTE7TtCXHuL4DnqI_NRpC2SACOYTuCv34lZlu_vv_PHWhFLAgrmkRg92ya";
+
     const CLIENT_ID = '1530774214330810368'; 
     const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+    function mostrarAvisoChulo(mensaje, tipo = 'success') {
+      const container = document.getElementById('flowcore-toast-container');
+      const toast = document.createElement('div');
+      toast.className = `fc-toast ${tipo === 'error' ? 'error' : ''}`;
+      
+      const icono = tipo === 'error' ? '🔒' : '⚡';
+      toast.innerHTML = `<span class="fc-toast-icon">${icono}</span> <span>${mensaje}</span>`;
+      
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'salirToast 0.3s ease forwards';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function mostrarFaltaLogin() {
+      mostrarAvisoChulo("¡ACCESO DENEGADO! Debes iniciar sesión con tu cuenta real de Discord en el botón superior antes de poder ver las secciones de la Wiki.", "error");
+    }
 
     function iniciarSesionDiscord() {
       const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
@@ -558,7 +553,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      window.cargarNoticiasLocal();
       verificarRespuestaDiscord();
     });
 
@@ -583,6 +577,7 @@
             };
             localStorage.setItem("discord_user", JSON.stringify(usuarioAutenticado));
             aplicarUsuarioEnForms(usuarioAutenticado);
+            mostrarAvisoChulo(`¡Bienvenido, ${usuarioAutenticado.globalName}! Sesión iniciada.`);
           }
         } catch (error) {
           console.error("Error conectando con Discord API:", error);
@@ -590,7 +585,12 @@
       } else {
         const usuarioGuardado = localStorage.getItem("discord_user");
         if (usuarioGuardado) {
-          try { aplicarUsuarioEnForms(JSON.parse(usuarioGuardado)); } catch (e) { localStorage.removeItem("discord_user"); }
+          try { 
+            aplicarUsuarioEnForms(JSON.parse(usuarioGuardado)); 
+          } catch (e) { 
+            localStorage.removeItem("discord_user"); 
+            mostrarFaltaLogin();
+          }
         } else {
           mostrarFaltaLogin();
         }
@@ -602,71 +602,157 @@
       if (btn) {
         btn.innerHTML = `<img src="${user.avatar}" class="avatar-user"> ${user.globalName}`;
         btn.style.background = "#2d7d46";
-        btn.style.borderColor = "#2d7d46";
-        btn.onclick = cerrarSesion;
+        btn.style.borderColor = "#00ff66";
       }
-      const sugBox = document.getElementById('sugUserDisplay');
-      if (sugBox) sugBox.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Enviando como: <b>${user.globalName}</b> (@${user.username})</span>`;
-      const bugBox = document.getElementById('bugUserDisplay');
-      if (bugBox) bugBox.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Enviando como: <b>${user.globalName}</b> (@${user.username})</span>`;
-    }
 
-    function mostrarFaltaLogin() {
-      const sugBox = document.getElementById('sugUserDisplay');
-      if (sugBox) sugBox.innerHTML = `<span style="color:#00ff66;">⚠️ Inicia sesión arriba con Discord para enviar sugerencias.</span>`;
-      const bugBox = document.getElementById('bugUserDisplay');
-      if (bugBox) bugBox.innerHTML = `<span style="color:#00ff66;">⚠️ Inicia sesión arriba con Discord para reportar bugs.</span>`;
-    }
+      const sugBadge = document.getElementById('sugUserDisplay');
+      if (sugBadge) {
+        sugBadge.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Conectado como: ${user.globalName}</span>`;
+      }
 
-    function cerrarSesion() {
-      if (confirm("¿Quieres cerrar sesión de Discord?")) {
-        localStorage.removeItem("discord_user");
-        location.reload();
+      const bugBadge = document.getElementById('bugUserDisplay');
+      if (bugBadge) {
+        bugBadge.innerHTML = `<img src="${user.avatar}" class="avatar-user"> <span>Conectado como: ${user.globalName}</span>`;
       }
     }
 
-    function abrirSeccion(id) {
+    function abrirSeccion(idSeccion) {
       const usuarioGuardado = localStorage.getItem("discord_user");
       if (!usuarioGuardado) {
-        alert("🔒 ¡ACCESO DENEGADO!\nDebes iniciar sesión con tu cuenta real de Discord para acceder.");
+        mostrarFaltaLogin();
         return;
       }
 
-      let secciones = document.getElementsByClassName('seccion-pantalla');
-      for (let i = 0; i < secciones.length; i++) {
-        secciones[i].classList.remove('activa');
-      }
-      let target = document.getElementById(id);
-      if (target) {
-        target.style.animation = 'none';
-        target.offsetHeight; 
-        target.style.animation = null;
-        target.classList.add('activa');
-      }
-      window.scrollTo(0, 0);
-    }
+      document.querySelectorAll('.seccion-pantalla').forEach(sec => {
+        sec.classList.remove('activa');
+        sec.style.display = 'none';
+      });
 
-    function seleccionarEstiloBLR(selectElement) {
-      const usuarioGuardado = localStorage.getItem("discord_user");
-      if (!usuarioGuardado) {
-        alert("🔒 ¡ACCESO DENEGADO!\nDebes iniciar sesión con Discord primero.");
-        selectElement.selectedIndex = 0;
-        return;
+      const objetivo = document.getElementById(idSeccion);
+      if (objetivo) {
+        objetivo.style.display = 'block';
+        objetivo.classList.add('activa');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      const val = selectElement.value;
-      if (val) {
-        if (val === 'todos') {
-          abrirSeccion('blr-estilos');
-        } else {
-          abrirSeccion('blr-estilos');
-          filtrarRarity(val, null);
-        }
-      }
-      selectElement.selectedIndex = 0;
     }
 
     function volverInicio() {
-      abrirSeccion('inicio');
+      document.querySelectorAll('.seccion-pantalla').forEach(sec => {
+        sec.classList.remove('activa');
+        sec.style.display = 'none';
+      });
+      const inicio = document.getElementById('inicio');
+      if (inicio) {
+        inicio.style.display = 'block';
+        inicio.classList.add('activa');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function seleccionarEstiloBLR(selectElement) {
+      const valor = selectElement.value;
+      if (!valor) return;
+
+      const usuarioGuardado = localStorage.getItem("discord_user");
+      if (!usuarioGuardado) {
+        mostrarFaltaLogin();
+        selectElement.selectedIndex = 0;
+        return;
+      }
+
+      abrirSeccion('blr-estilos');
+      filtrarRarity(valor, null);
+      selectElement.selectedIndex = 0;
+    }
+
+    function filtrarRarity(categoria, btnElement) {
+      if (btnElement) {
+        document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('activo'));
+        btnElement.classList.add('activo');
+      }
+
+      const tarjetas = document.querySelectorAll('.estilos-grid .estilo-card');
+      tarjetas.forEach(tarjeta => {
+        if (categoria === 'todos') {
+          tarjeta.style.display = 'flex';
+        } else {
+          if (tarjeta.classList.contains(`rarity-${categoria}`)) {
+            tarjeta.style.display = 'flex';
+          } else {
+            tarjeta.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    async function enviarConWebhook(payload) {
+      if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes("TU_DISCORD_WEBHOOK_URL")) {
+        mostrarAvisoChulo("Webhook no configurado correctamente.", "error");
+        return false;
+      }
+      try {
+        const response = await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        return response.ok;
+      } catch (err) {
+        console.error("Error enviando webhook:", err);
+        return false;
+      }
+    }
+
+    async function enviarSugerencia(event) {
+      event.preventDefault();
+      const desc = document.getElementById('sugDesc').value;
+      const usuario = JSON.parse(localStorage.getItem("discord_user") || '{"globalName":"Anónimo"}');
+
+      const payload = {
+        content: `💡 **Nueva Sugerencia de Wiki**\n**Usuario:** ${usuario.globalName}\n**Idea:** ${desc}`
+      };
+
+      const enviado = await enviarConWebhook(payload);
+      if (enviado) {
+        mostrarAvisoChulo("¡Sugerencia enviada con éxito al canal!");
+        document.getElementById('sugDesc').value = '';
+      } else {
+        mostrarAvisoChulo("Error al enviar la sugerencia.", "error");
+      }
+    }
+
+    async function enviarReporte(event) {
+      event.preventDefault();
+      const desc = document.getElementById('bugDesc').value;
+      const usuario = JSON.parse(localStorage.getItem("discord_user") || '{"globalName":"Anónimo"}');
+
+      const payload = {
+        content: `🛠️ **Reporte de Bug**\n**Usuario:** ${usuario.globalName}\n**Problema:** ${desc}`
+      };
+
+      const enviado = await enviarConWebhook(payload);
+      if (enviado) {
+        mostrarAvisoChulo("¡Reporte enviado con éxito al Staff!");
+        document.getElementById('bugDesc').value = '';
+      } else {
+        mostrarAvisoChulo("Error al enviar el reporte.", "error");
+      }
+    }
+
+    function verificarCodigoCmd(event) {
+      event.preventDefault();
+      const codigo = document.getElementById('codigoAcceso').value;
+      const resultado = document.getElementById('resultadoCmd');
+
+      if (codigo === "FLOWCORE2026") {
+        resultado.style.color = "#00ff66";
+        resultado.innerText = "ACCESO CONCEDIDO: ¡Bienvenido al panel de Staff!";
+        mostrarAvisoChulo("¡Código de Staff correcto!");
+      } else {
+        resultado.style.color = "#ff3366";
+        resultado.innerText = "ACCESO DENEGADO: Código incorrecto.";
+        mostrarAvisoChulo("Código de Staff incorrecto.", "error");
+      }
     }
   </script>
 </body>
