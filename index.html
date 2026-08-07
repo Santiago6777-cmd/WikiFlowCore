@@ -56,6 +56,11 @@
       animation: glitchTransicionPro 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
     }
 
+    /* Transición responsiva solicitada: mitad en PC, pantalla completa en celular */
+    .transicion-dinamica {
+      width: 50%;
+    }
+
     #inicio { position: relative; }
     .hero-content { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
     .titulo {
@@ -126,6 +131,26 @@
     }
     .btn-volver:hover { background-color: #ffffff; box-shadow: 0 0 20px #ffffff; }
     .reglas-grid { display: flex; flex-direction: column; gap: 18px; max-width: 900px; }
+    
+    /* Estilo personalizado para BLR-OFIX: Bordes Verdes Neón, Morado Clarito y Letras Negras */
+    .regla-card-ofix {
+      background: #d1b3ff !important;
+      border: 2px solid #00ff66 !important;
+      border-left: 5px solid #00ff66 !important;
+      color: #000000 !important;
+      padding: 20px 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+    }
+    .regla-card-ofix .regla-titulo {
+      color: #000000 !important;
+      font-weight: 900;
+    }
+    .regla-card-ofix .regla-texto {
+      color: #000000 !important;
+      font-weight: 700;
+    }
+
     .regla-card {
       background: rgba(15, 0, 35, 0.85); border-left: 5px solid #00ff66; padding: 20px 25px;
       border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
@@ -200,6 +225,11 @@
       .nav-btn, .blr-select { font-size: 0.7rem; padding: 6px 10px; }
       .seccion-titulo { font-size: 1.6rem; }
       .mas-container { grid-template-columns: 1fr; }
+      
+      /* Transición de pantalla completa en celulares */
+      .transicion-dinamica {
+        width: 100% !important;
+      }
     }
   </style>
 </head>
@@ -470,7 +500,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">6 AGOSTO 2026</div>
-              <div>Transición de glitch pro optimizada (negro, morado y verde neón).</div>
+              <div>Reglas de BLR-OFIX actualizadas y transiciones responsivas configuradas.</div>
             </li>
           </ul>
         </div>
@@ -484,8 +514,28 @@
   </div>
 
   <div id="blr-ofix" class="seccion-pantalla">
-    <div class="seccion-header"><button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button><h1 class="seccion-titulo">Estilo: BLR-OFIX</h1></div>
-    <div class="reglas-grid"><div class="regla-card"><div class="regla-titulo">🎮 Partidos Oficiales y Fair Play</div><div class="regla-texto">Prohibido hacks, exploits o macros.</div></div></div>
+    <div class="seccion-header">
+      <button onclick="volverInicio()" class="btn-volver">← Volver al Menú</button>
+      <h1 class="seccion-titulo">Estilo: BLR-OFIX</h1>
+    </div>
+    <div class="reglas-grid transicion-dinamica">
+      <div class="regla-card-ofix">
+        <div class="regla-titulo">🎮 Partidos Oficiales y Fair Play</div>
+        <div class="regla-texto">Prohibido hacks, exploits o macros.</div>
+      </div>
+      <div class="regla-card-ofix">
+        <div class="regla-titulo">⏳ Tiempo</div>
+        <div class="regla-texto">Los equipos deben acordar el partido 10 Min antes de la hora oficial.</div>
+      </div>
+      <div class="regla-card-ofix">
+        <div class="regla-titulo">⚔️ Wc</div>
+        <div class="regla-texto">Como maximo son 2 Wc por partido.</div>
+      </div>
+      <div class="regla-card-ofix">
+        <div class="regla-titulo">🌐 Default</div>
+        <div class="regla-texto">Si el equipo no se presenta en menos de 30 min pero el otro sí es Default para el equipo que sí se presentó.</div>
+      </div>
+    </div>
   </div>
 
   <div id="fichajes" class="seccion-pantalla">
@@ -603,169 +653,21 @@
         selectElement.selectedIndex = 0;
         return;
       }
-      let valor = selectElement.value;
-      if (valor) {
-        abrirSeccion('blr-estilos');
-        let btn = document.querySelector('.btn-filtro[onclick*="' + valor + '"]');
-        if (btn) filtrarRarity(valor, btn);
-        selectElement.selectedIndex = 0;
+      const val = selectElement.value;
+      if (val) {
+        if (val === 'todos') {
+          abrirSeccion('blr-estilos');
+        } else {
+          abrirSeccion('blr-estilos');
+          filtrarRarity(val, null);
+        }
       }
+      selectElement.selectedIndex = 0;
     }
-
-    window.guardarCambiosLocal = function() {
-      let btnGuardar = document.querySelector('button[onclick="guardarCambiosLocal()"]');
-      let textoOriginal = btnGuardar.innerHTML;
-      btnGuardar.innerHTML = "⏳ Guardando...";
-      let elementosEditables = document.querySelectorAll('[data-id]');
-      elementosEditables.forEach(el => {
-        let id = el.getAttribute('data-id');
-        localStorage.setItem("wiki_flow_" + id, el.innerHTML);
-      });
-      setTimeout(() => {
-        alert("¡Cambios guardados exitosamente en el navegador!");
-        btnGuardar.innerHTML = textoOriginal;
-      }, 300);
-    };
-
-    window.cargarNoticiasLocal = function() {
-      let elementosEditables = document.querySelectorAll('[data-id]');
-      elementosEditables.forEach(el => {
-        let guardado = localStorage.getItem("wiki_flow_" + el.getAttribute('data-id'));
-        if (guardado !== null) el.innerHTML = guardado;
-      });
-    };
 
     function volverInicio() {
-      let secciones = document.getElementsByClassName('seccion-pantalla');
-      for (let i = 0; i < secciones.length; i++) secciones[i].classList.remove('activa');
-      let inicio = document.getElementById('inicio');
-      inicio.style.animation = 'none';
-      inicio.offsetHeight;
-      inicio.style.animation = null;
-      inicio.classList.add('activa');
-      window.scrollTo(0, 0);
-    }
-
-    function filtrarRarity(rarity, btn) {
-      document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('activo'));
-      if (btn) btn.classList.add('activo');
-      document.querySelectorAll('.estilo-card').forEach(card => {
-        card.style.display = (rarity === 'todos' || card.classList.contains('rarity-' + rarity)) ? 'flex' : 'none';
-      });
-    }
-
-    function verificarCodigoCmd(event) {
-      event.preventDefault();
-      let inputCode = document.getElementById('codigoAcceso').value;
-      let resultadoDiv = document.getElementById('resultadoCmd');
-      let panelControles = document.getElementById('panelControlesStaff');
-
-      if (inputCode === 'flowcoregang') {
-        resultadoDiv.style.color = '#00ff66';
-        resultadoDiv.innerHTML = "✅ ¡Código verificado correctamente!";
-        panelControles.style.display = 'flex';
-      } else {
-        resultadoDiv.style.color = '#800080';
-        resultadoDiv.innerHTML = "❌ Código incorrecto.";
-        panelControles.style.display = 'none';
-      }
-    }
-
-    let modoEdicionActivo = false;
-    function alternarModoEdicion() {
-      modoEdicionActivo = !modoEdicionActivo;
-      let cuerpo = document.getElementById('cuerpoPagina');
-      let btnEdit = document.getElementById('btnModoEdicion');
-      if (modoEdicionActivo) {
-        cuerpo.classList.add('editando-activo');
-        btnEdit.style.background = '#800080';
-        btnEdit.innerHTML = "🔴 Desactivar Modo Edición";
-        document.querySelectorAll('[data-id]').forEach(el => el.setAttribute('contenteditable', 'true'));
-      } else {
-        cuerpo.classList.remove('editando-activo');
-        btnEdit.style.background = '#00ff66';
-        btnEdit.innerHTML = "🟢 Activar Modo Edición Directa";
-        document.querySelectorAll('[data-id]').forEach(el => el.setAttribute('contenteditable', 'false'));
-      }
-    }
-
-    async function enviarReporte(event) {
-      event.preventDefault();
-      const usuarioGuardado = localStorage.getItem("discord_user");
-      if (!usuarioGuardado) { alert("🔒 Debes iniciar sesión con Discord primero."); return; }
-      
-      const usuario = JSON.parse(usuarioGuardado);
-      const descripcion = document.getElementById('bugDesc').value;
-      const btn = document.getElementById('btnEnviarBug');
-      
-      btn.innerText = "Enviando...";
-      btn.disabled = true;
-
-      try {
-        const respuesta = await fetch('/api/enviar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            tipo: 'reporte',
-            globalName: `${usuario.globalName} (@${usuario.username})`,
-            texto: descripcion
-          })
-        });
-
-        if (respuesta.ok) {
-          alert("✅ ¡Reporte enviado con éxito al canal por el bot!");
-          document.getElementById('bugDesc').value = '';
-        } else {
-          alert("❌ Hubo un error al enviar el reporte.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("❌ Error de conexión con el servidor.");
-      } finally {
-        btn.innerText = "Enviar Reporte";
-        btn.disabled = false;
-      }
-    }
-
-    async function enviarSugerencia(event) {
-      event.preventDefault();
-      const usuarioGuardado = localStorage.getItem("discord_user");
-      if (!usuarioGuardado) { alert("🔒 Debes iniciar sesión con Discord primero."); return; }
-      
-      const usuario = JSON.parse(usuarioGuardado);
-      const sugerenciaTexto = document.getElementById('sugDesc').value;
-      const btn = document.getElementById('btnEnviarSug');
-      
-      btn.innerText = "Enviando...";
-      btn.disabled = true;
-
-      try {
-        const respuesta = await fetch('/api/enviar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            tipo: 'sugerencia',
-            globalName: `${usuario.globalName} (@${usuario.username})`,
-            texto: sugerenciaTexto
-          })
-        });
-
-        if (respuesta.ok) {
-          alert("✅ ¡Sugerencia enviada con éxito al canal por el bot!");
-          document.getElementById('sugDesc').value = '';
-        } else {
-          alert("❌ Hubo un error al enviar la sugerencia.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("❌ Error de conexión con el servidor.");
-      } finally {
-        btn.innerText = "Enviar Sugerencia";
-        btn.disabled = false;
-      }
+      abrirSeccion('inicio');
     }
   </script>
-
 </body>
 </html>
-```[cite: 2]
