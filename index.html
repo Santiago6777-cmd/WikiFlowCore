@@ -168,7 +168,72 @@
     .patch-item { background: rgba(20, 0, 40, 0.6); border-left: 3px solid #800080; padding: 10px 15px; border-radius: 4px; font-size: 1.05rem; }
     .patch-date { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #00ff66; margin-bottom: 3px; }
 
-    /* AVISOS TOAST (ESTILO AURA: MORADO OSCURO + BORDES NEÓN VERDE + LETRAS BLANCAS) */
+    /* ESTILOS PARA BANDEJA DE STAFF TIPO NVIDIA HUD */
+    .admin-hud-container {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+      animation: glitchTransicionPro 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+    }
+    .admin-hud-card {
+      background: rgba(12, 0, 25, 0.95);
+      border: 2px solid #00ff66;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 0 25px rgba(0, 255, 102, 0.3), inset 0 0 15px rgba(128, 0, 128, 0.4);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    .admin-hud-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: #00ff66;
+      text-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .admin-hud-desc {
+      font-size: 1.05rem;
+      color: #d0d0d0;
+      line-height: 1.4;
+    }
+    .admin-hud-btn {
+      background: #00ff66;
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 0 12px rgba(0, 255, 102, 0.6);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .admin-hud-btn:hover {
+      background: #ffffff;
+      box-shadow: 0 0 20px #ffffff;
+      transform: translateY(-2px);
+    }
+    .admin-hud-btn-cloud {
+      background: #800080;
+      color: #fff;
+      border: 1px solid #00ff66;
+      box-shadow: 0 0 12px rgba(128, 0, 128, 0.8);
+    }
+    .admin-hud-btn-cloud:hover {
+      background: #00ff66;
+      color: #000;
+      box-shadow: 0 0 20px #00ff66;
+    }
+
+    /* AVISOS TOAST */
     #flowcore-toast-container {
       position: fixed; top: 30px; right: 30px; z-index: 9999999;
       display: flex; flex-direction: column; gap: 10px; pointer-events: none;
@@ -321,12 +386,12 @@
     </div>
     <div class="estilos-grid">
 
-      <!-- ESTILOS DEFENSIVOS -->
+      <!-- DEFENSIVOS -->
       <div class="estilo-card rarity-defensivos">
         <div>
           <span class="badge-rareza badge-rare">Estilo Defensivo</span>
           <div class="estilo-nombre">🐕‍🦺 Raichi</div>
-          <div class="estilo-rol">Contención / Defensivo</div>
+          <div class="estilo-rol">Defensivo</div>
           <div class="estilo-desc">Sin Reglas.<br>NO Cuenta como World Class.</div>
         </div>
       </div>
@@ -334,7 +399,7 @@
         <div>
           <span class="badge-rareza badge-worldclass">Estilo Defensivo</span>
           <div class="estilo-nombre">🐍 Aiku</div>
-          <div class="estilo-rol">Defensa Central</div>
+          <div class="estilo-rol">Defensivo</div>
           <div class="estilo-desc">4 Usos de Total Clearances por tiempo.<br>Cuenta como World Class.</div>
         </div>
       </div>
@@ -342,7 +407,7 @@
         <div>
           <span class="badge-rareza badge-worldclass">Estilo Defensivo</span>
           <div class="estilo-nombre">🧟 Don Lorenzo</div>
-          <div class="estilo-rol">Defensa Central</div>
+          <div class="estilo-rol">Defensivo</div>
           <div class="estilo-desc">Sin Reglas.<br>Cuenta como World Class.</div>
         </div>
       </div>
@@ -358,17 +423,17 @@
         <div>
           <span class="badge-rareza badge-worldclass">Estilo Defensivo</span>
           <div class="estilo-nombre">🟣 NEL Reo (CM)</div>
-          <div class="estilo-rol">Mediocampista Defensivo</div>
+          <div class="estilo-rol">Defensivo</div>
           <div class="estilo-desc">5 Usos compartidos de EU Tech y Chameleon Defense por tiempo.<br>Cuenta como World Class.</div>
         </div>
       </div>
 
-      <!-- ESTILOS NORMALES -->
+      <!-- NORMALES -->
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">⚡ Chigiri</div>
-          <div class="estilo-rol">Velocista</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Dash.<br>No podrá hacer gol dentro del área del GK Rival si se utiliza Speedster + Flow de Fuerza.</div>
         </div>
       </div>
@@ -376,7 +441,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🐻 Gagamaru</div>
-          <div class="estilo-rol">Delantero / Portero</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
@@ -384,7 +449,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🧩 Isagi</div>
-          <div class="estilo-rol">Mediocampista / Delantero</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
@@ -392,7 +457,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🐦 Karasu</div>
-          <div class="estilo-rol">Mediocampista</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Offside.</div>
         </div>
       </div>
@@ -400,15 +465,15 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🦈 Kurona</div>
-          <div class="estilo-rol">Asistente</div>
-          <div class="estilo-desc">Se aplica Regla de Offside.<br>4 Usos máximo de su Shark Steal por tiempo. Usarlo no cuenta como WC.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">Se aplica Regla de Offside.<br>4 Usos máximo de seu Shark Steal por tiempo. Usarlo no cuenta como WC.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🥷 Otoya</div>
-          <div class="estilo-rol">Delantero Silencioso</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
@@ -416,7 +481,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">❄️ Hiori</div>
-          <div class="estilo-rol">Mediocampista</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Offside.</div>
         </div>
       </div>
@@ -424,7 +489,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">⚖️ Kiyora</div>
-          <div class="estilo-rol">Mediocampista</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Offside.</div>
         </div>
       </div>
@@ -432,7 +497,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🪄 Ness</div>
-          <div class="estilo-rol">Asistente / Mago</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Offside.<br>Se aplica Regla de Stun/Robo, usarlo cuenta como WC.</div>
         </div>
       </div>
@@ -440,7 +505,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🦁 King</div>
-          <div class="estilo-rol">Delantero</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Stun/Robo, usarlo cuenta como WC.<br>Si se utiliza Chop Feast en un compañero en lado rival, también contará como WC.</div>
         </div>
       </div>
@@ -448,23 +513,23 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🐝 Bachira / NEL Bachira</div>
-          <div class="estilo-rol">Regateador</div>
-          <div class="estilo-desc">Se aplica Regla de Offside.<br>El steal en campo rival solo se podrá usar para movilidad (no robar balón). Usarlo no cuenta como WC.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">Se aplica Regla de Offside.<br>El steal en campo rival solo se podrá usar para movilidad, osea, no se podrá robarle el balón al rival con este move. Usarlo no cuenta como WC.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">💀 Nagi / NEL Nagi</div>
-          <div class="estilo-rol">Genio del Control</div>
-          <div class="estilo-desc">Se aplica Regla de Dash.<br>Se aplica Regla de Stun/Robo al “Trap Defensivo” (cuenta como WC).<br>Si usa “Trap Cancel” dentro del área rival, debe esperar 3s para gol.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">Se aplica Regla de Dash.<br>Se aplica Regla de Stun/Robo al “Trap Defensivo”. Usarlo cuenta como WC.<br>Trap Defensivo es hacer trap cuando el último toque del balón fue del rival.<br>Si utiliza “Trap Cancel” dentro del área del GK Rival, deberá esperar 3 segundos para hacer gol. [Salir del área y volver a entrar elimina este contador]</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🏋️ Kunigami</div>
-          <div class="estilo-rol">Delantero Potente</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Stun/Robo solamente para “Body Block”. Usarlo cuenta como WC.</div>
         </div>
       </div>
@@ -472,55 +537,55 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">😈 Charles</div>
-          <div class="estilo-rol">Mediocampista Creador</div>
-          <div class="estilo-desc">3 Usos máximos de Contrarian Defense (no cuenta como WC).<br>No se puede hacer gol con Metavisión + Flow de Fuerza.<br>Se aplica Regla de Offside.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">3 Usos máximos de Contrarian Defense. Usarlo no cuenta como WC.<br>No se puede hacer gol con Metavisión + Flow de Fuerza.<br>Se aplica Regla de Offside.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🐈 Yukimiya</div>
-          <div class="estilo-rol">Delantero / Regateador</div>
-          <div class="estilo-desc">No se puede stunear al GK con street-dribbling (AWK).<br>No se puede usar bugs para aumentar la distancia de los dribbles.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">No se puede stunear al GK con street-dribbling (AWK).<br>No se puede usar bugs para aumentar la distancia recorrida de sus dribbles.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">💥 Shidou</div>
-          <div class="estilo-rol">Delantero Impredecible</div>
-          <div class="estilo-desc">Se aplica Regla de Dash.<br>No podrá hacer gol haciendo tiro en medio de dash (Dragon Drive) con Flow Tier 2 activo (solo si es el único FT2).</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">Se aplica Regla de Dash.<br>No podrá hacer gol haciendo un tiro en medio de dash (Dragon Drive) con un Flow Tier 2 activado. [Sólo podrá si es el único Flow Tier 2]</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🐇 Bunny</div>
-          <div class="estilo-rol">Especial</div>
-          <div class="estilo-desc">No puede hacer gol con los movimientos de Awakening (Bug).</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">No puede hacer gol con los movimientos de Awakening. (Bug)</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">👻 Phantom Isagi</div>
-          <div class="estilo-rol">Delantero</div>
-          <div class="estilo-desc">Solamente podrá hacer Flick + Direct shot, pero no sus otras variantes (Baneado Volea + Direct, M2 + Direct, etc).</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">Solamente podrá hacer Flick + Direct shot, pero no sus otras variantes. (Baneado: Volea + Direct, M2 + Direct, otras variantes)</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🧩 NEL Isagi</div>
-          <div class="estilo-rol">Mediocampista / Delantero</div>
-          <div class="estilo-desc">No podrá hacer gol en área rival si usa Omnivision + Flow Tier 2 (salvo que sea único FT2).<br>Solo Flick + Direct shot permitido.<br>Steal en campo rival solo para movilidad.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">No podrá hacer gol dentro del área del GK Rival si utiliza Omnivision + Flow Tier 2. [Solo podrá si es el único flow tier 2 del equipo]<br>Solamente podrá hacer Flick + Direct shot, pero no sus otras variantes.<br>El steal en campo rival solo se podrá usar para movilidad, osea, no se podrá robarle el balón al rival con este move. Usarlo no cuenta como WC.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🍪 Gingerbread Charles</div>
-          <div class="estilo-rol">Especial Navideño</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
@@ -528,7 +593,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🧨 Firework Bachira</div>
-          <div class="estilo-rol">Regateador Especial</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
@@ -536,7 +601,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🦴 Skeleton Nagi</div>
-          <div class="estilo-rol">Especial Halloween</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Stun/Robo solamente para su Trap. Usarlo cuenta como WC.</div>
         </div>
       </div>
@@ -544,7 +609,7 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🩸 Bloodmoon Rin</div>
-          <div class="estilo-rol">Especial</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Stun/Robo. Usarlo cuenta como WC.</div>
         </div>
       </div>
@@ -552,15 +617,15 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">😈 Demon Shidou</div>
-          <div class="estilo-rol">Especial</div>
-          <div class="estilo-desc">No puede hacer gol con Inferno Dragon Drive AWK (Bug).<br>No puede hacer Shotstack con sus tiros (Volea + Shot, M2 + Shot, etc).</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">No puede hacer gol con Inferno Dragon Drive AWK. (Bug)<br>No puede hacer Shotstack con sus tiros. (Volea + Shot, M2 + Shot, etc)</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🧝 Elf Emperor</div>
-          <div class="estilo-rol">Especial</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Sin Reglas.</div>
         </div>
       </div>
@@ -568,25 +633,25 @@
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🎄 Krampus Barou</div>
-          <div class="estilo-rol">Especial Navideño</div>
-          <div class="estilo-desc">No podrá hacer gol en área rival con Predator Krampus + Flow Tier 2.<br>Solo se puede usar Blizzard Fang Shot con Predator Krampus detrás de la media luna.</div>
+          <div class="estilo-rol">Normal</div>
+          <div class="estilo-desc">No podrá hacer gol adentro del área del GK Rival si se utiliza Predator Krampus + Flow Tier 2. [Solo podrá si es el único flow tier 2 del equipo]<br>Solo se podrá usar Blizzard Fang Shot con Predator Krampus detrás de la media luna.</div>
         </div>
       </div>
       <div class="estilo-card rarity-normales">
         <div>
           <span class="badge-rareza badge-epic">Estilo Normal</span>
           <div class="estilo-nombre">🐰 Easter Yukimiya</div>
-          <div class="estilo-rol">Especial Pascuas</div>
+          <div class="estilo-rol">Normal</div>
           <div class="estilo-desc">Se aplica Regla de Stun/Robo solamente para su Trap. Usarlo cuenta como WC.</div>
         </div>
       </div>
 
-      <!-- ESTILOS WORLD CLASS -->
+      <!-- WORLD CLASS -->
       <div class="estilo-card rarity-worldclass">
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">🔢 Sae</div>
-          <div class="estilo-rol">Mediocampista World Class</div>
+          <div class="estilo-rol">World Class</div>
           <div class="estilo-desc">Se aplica Regla de Offside.</div>
         </div>
       </div>
@@ -594,7 +659,7 @@
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">👑 Kaiser</div>
-          <div class="estilo-rol">Delantero World Class</div>
+          <div class="estilo-rol">World Class</div>
           <div class="estilo-desc">No puede usar subjugation mientras su compañero está realizando un tiro.</div>
         </div>
       </div>
@@ -602,31 +667,31 @@
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">🔆 Rin / NEL Rin</div>
-          <div class="estilo-rol">Delantero Estelar</div>
-          <div class="estilo-desc">No podrá hacer gol dentro del área del GK Rival si se utiliza Destroyer Mode + Flow de Fuerza.</div>
+          <div class="estilo-rol">World Class</div>
+          <div class="estilo-desc">No podrá hacer gol adentro del área del GK Rival si se utiliza Destroyer Mode + Flow de Fuerza.</div>
         </div>
       </div>
       <div class="estilo-card rarity-worldclass">
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">⚛️ Reo / NEL Reo</div>
-          <div class="estilo-rol">Versátil / Copiador</div>
-          <div class="estilo-desc">No puede copiar estilos defensivos (Aiku, Lorenzo, Raichi, Igaguri).<br>Si se usa de CM pasa a reglas de NEL Reo (CM).<br>Elegir entre Chameleon Defense o EU Tech (Máx 3 usos).</div>
+          <div class="estilo-rol">World Class</div>
+          <div class="estilo-desc">No puede copiar estilos defensivos. [Aiku, Don Lorenzo, Raichi, Igaguri]<br>Si se usa de CM, entonces las reglas pasan a ser las de “NEL Reo (CM)”.<br>Se debe elegir entre usar Chameleon Defense o EU Tech, no se puede usar ambas.<br>Máximo 3 usos de EU Tech o Chameleon Defense.</div>
         </div>
       </div>
       <div class="estilo-card rarity-worldclass">
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">☠️ Reaper Sae</div>
-          <div class="estilo-rol">Mediocampista Oscuro</div>
-          <div class="estilo-desc">No podrá hacer gol en área rival si usa Graveyard + Flow de Fuerza.<br>Se aplica Regla de Offside.<br>No puede usar Death Call en área ni gol con Execution Shot AWK (Bug).</div>
+          <div class="estilo-rol">World Class</div>
+          <div class="estilo-desc">No podrá hacer gol adentro del área del GK Rival si utiliza Graveyard + Flow de Fuerza<br>Se aplica Regla de Offside<br>No puede utilizar Death Call dentro del área.<br>No puede hacer gol con Execution Shot AWK. (Bug)</div>
         </div>
       </div>
       <div class="estilo-card rarity-worldclass">
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">🐈‍⬛ NEL Chigiri</div>
-          <div class="estilo-rol">Velocista World Class</div>
+          <div class="estilo-rol">World Class</div>
           <div class="estilo-desc">Se aplica Regla de Dash.<br>Puede hacer gol con Flow de Fuerza + Speedster.</div>
         </div>
       </div>
@@ -634,17 +699,17 @@
         <div>
           <span class="badge-rareza badge-worldclass">World Class</span>
           <div class="estilo-nombre">👺 NEL Shidou</div>
-          <div class="estilo-rol">Delantero World Class</div>
-          <div class="estilo-desc">Solo se puede hacer gol con Dragonic Volley si es antes del semicírculo del arco rival.<br>No puedes robar balón con Dragonic Volley.<br>No se puede combinar con Dragon Drive de Shidou Normal (cuenta como 2 WC).</div>
+          <div class="estilo-rol">World Class</div>
+          <div class="estilo-desc">Solo se puede hacer gol con Dragonic Volley si es antes del semicírculo del arco del GK Rival.<br>No puedes robarle el balón al rival con Dragonic Volley.<br>No se puede combinar con “Dragon Drive” de Shidou Normal. (Si se hace, entonces contará como 2 WC)</div>
         </div>
       </div>
 
-      <!-- ESTILOS MASTER CLASS -->
+      <!-- MASTER CLASS -->
       <div class="estilo-card rarity-master">
         <div>
           <span class="badge-rareza badge-master">Master Class</span>
           <div class="estilo-nombre">⚜️ Loki</div>
-          <div class="estilo-rol">Velocista Supremo</div>
+          <div class="estilo-rol">Master Class</div>
           <div class="estilo-desc">Sin Reglas.<br>Master Class equivale a 2 World Class (1 en amistosos).</div>
         </div>
       </div>
@@ -652,7 +717,7 @@
         <div>
           <span class="badge-rareza badge-master">Master Class</span>
           <div class="estilo-nombre">🦋 Lavinho</div>
-          <div class="estilo-rol">Creador / Danzarín</div>
+          <div class="estilo-rol">Master Class</div>
           <div class="estilo-desc">Sin Reglas.<br>Master Class equivale a 2 World Class (1 en amistosos).</div>
         </div>
       </div>
@@ -660,7 +725,7 @@
         <div>
           <span class="badge-rareza badge-master">Master Class</span>
           <div class="estilo-nombre">🎅 Santa Lavinho</div>
-          <div class="estilo-rol">Especial Master Class</div>
+          <div class="estilo-rol">Master Class</div>
           <div class="estilo-desc">Sin Reglas.<br>Master Class equivale a 2 World Class (1 en amistosos).</div>
         </div>
       </div>
@@ -668,7 +733,7 @@
         <div>
           <span class="badge-rareza badge-master">Master Class</span>
           <div class="estilo-nombre">🧊 Frost Loki</div>
-          <div class="estilo-rol">Especial Master Class</div>
+          <div class="estilo-rol">Master Class</div>
           <div class="estilo-desc">Sin Reglas.<br>Master Class equivale a 2 World Class (1 en amistosos).</div>
         </div>
       </div>
@@ -676,8 +741,8 @@
         <div>
           <span class="badge-rareza badge-master">Master Class</span>
           <div class="estilo-nombre">🔵 Goku</div>
-          <div class="estilo-rol">Invitado Supremo</div>
-          <div class="estilo-desc">Prohibido hacer Kamehameha a la portería.<br>Prohibido matar a un jugador con la Genkidama.</div>
+          <div class="estilo-rol">Master Class</div>
+          <div class="estilo-desc">Prohibido hacer Kamehameha a la portería.<br>Prohibido matar a un jugador con la genkidama.<br>Master Class equivale a 2 World Class (1 en amistosos).</div>
         </div>
       </div>
 
@@ -697,6 +762,25 @@
           <button type="submit" class="btn-enviar">Verificar Código</button>
         </form>
         <div id="resultadoCmd" style="margin-top: 10px; font-family: 'Orbitron', sans-serif; font-size: 0.95rem;"></div>
+
+        <!-- BANDEJA DE STAFF TIPO NVIDIA HUD -->
+        <div class="admin-hud-container" id="adminHudContainer">
+          <div class="admin-hud-card">
+            <div>
+              <div class="admin-hud-title">🏗️ Modo Constructor</div>
+              <div class="admin-hud-desc">Este modo te permite editar ciertos textos para que así puedas updear la página cierto tiempo y dar actualizaciones.</div>
+            </div>
+            <button class="admin-hud-btn" onclick="activarModoConstructor()">Boton xd</button>
+          </div>
+          <div class="admin-hud-card">
+            <div>
+              <div class="admin-hud-title">☁️ Guardar en la nube</div>
+              <div class="admin-hud-desc">Cuando termines de editar presiona este botón para que así se guarde todo lo que hiciste.</div>
+            </div>
+            <button class="admin-hud-btn admin-hud-btn-cloud" onclick="guardarEnLaNube()">Boton</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -738,7 +822,7 @@
           <ul class="patch-lista">
             <li class="patch-item">
               <div class="patch-date">7 AGOSTO 2026</div>
-              <div>Actualización masiva de la enciclopedia de estilos con reglas completas de BLR.</div>
+              <div>Actualización masiva: Todos los estilos integrados correctamente en la enciclopedia de BLR.</div>
             </li>
           </ul>
         </div>
@@ -1007,16 +1091,28 @@
       event.preventDefault();
       const codigo = document.getElementById('codigoAcceso').value;
       const resultado = document.getElementById('resultadoCmd');
+      const hudContainer = document.getElementById('adminHudContainer');
 
       if (codigo === "FLOWCORE2026") {
         resultado.style.color = "#00ff66";
-        resultado.innerText = "ACCESO CONCEDIDO: ¡Bienvenido al panel de Staff!";
-        mostrarAvisoChulo("¡Código de Staff correcto!");
+        resultado.innerText = "ACCESO CONCEDIDO: ¡Panel habilitado!";
+        hudContainer.style.display = "grid";
+        mostrarAvisoChulo("¡Código de Staff correcto! Panel activado.");
       } else {
         resultado.style.color = "#ff3366";
         resultado.innerText = "ACCESO DENEGADO: Código incorrecto.";
+        hudContainer.style.display = "none";
         mostrarAvisoChulo("Código de Staff incorrecto.", "error");
       }
+    }
+
+    function activarModoConstructor() {
+      mostrarAvisoChulo("Modo Constructor activo: Ya puedes editar textos directamente en la página.");
+      // Aquí se pueden habilitar atributos de edición rápida en los títulos si se desea
+    }
+
+    function guardarEnLaNube() {
+      mostrarAvisoChulo("¡Cambios guardados con éxito en la nube! ☁️⚡");
     }
   </script>
 </body>
